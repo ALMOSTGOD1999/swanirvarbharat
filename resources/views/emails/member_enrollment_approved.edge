@@ -1,0 +1,21 @@
+@layout.email({ title: 'Your Swanirvarbharat enrollment was approved' })
+
+  @emails.paragraph()
+    Hi {{ user.username }},
+  @end
+
+  @emails.paragraph()
+    Your request to access <strong>{{ resource.title }}</strong>was approved. You can now continue with this {{ resource.type }} and its lessons.
+  @end
+
+  @emails.button({ href: resource.url })
+    Continue Learning
+  @end
+
+  @!emails.signature()
+
+  @emails.paragraph()
+    <a href="{{ resource.url }}">{{ resource.url }}</a>
+  @end
+
+@end

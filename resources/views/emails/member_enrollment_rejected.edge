@@ -1,0 +1,25 @@
+@layout.email({ title: 'Your Swanirvarbharat enrollment needs changes' })
+
+  @emails.paragraph()
+    Hi {{ user.username }},
+  @end
+
+  @emails.paragraph()
+    Your request to access <strong>{{ resource.title }}</strong>was not approved yet.
+  @end
+
+  @emails.paragraph()
+    Reason: {{ enrollment.rejectionReason }}
+  @end
+
+  @emails.button({ href: resource.url })
+    Review and Resubmit
+  @end
+
+  @!emails.signature()
+
+  @emails.paragraph()
+    <a href="{{ resource.url }}">{{ resource.url }}</a>
+  @end
+
+@end

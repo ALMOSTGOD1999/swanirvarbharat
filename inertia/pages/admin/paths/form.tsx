@@ -1,0 +1,412 @@
+import type { InertiaProps } from '~/types'
+import React, { useEffect, useRef, useState } from 'react'
+import AdminLayout from '~/layouts/admin'
+import { Head } from '@inertiajs/react'
+import { Header } from '~/components/header'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '~/components/ui/breadcrumb'
+import { Main } from '~/components/main'
+import { Form } from '~/components/ui/form'
+import { Field, FieldError, FieldLabel } from '~/components/ui/field'
+import { Input } from '~/components/ui/input'
+import { Button } from '~/components/ui/button'
+import { Link } from '@adonisjs/inertia/react'
+import { Textarea } from '~/components/ui/textarea'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select'
+import { Switch } from '~/components/ui/switch'
+import { Separator } from '~/components/ui/separator'
+import { UploadIcon, XIcon, ImageIcon } from 'lucide-react'
+import { AssetPicker, type AssetPickerAsset } from '~/components/admin/asset_picker'
+
+import { States } from '#enums/states'
+import { useFileUpload } from '~/hooks/use-file-upload'
+
+type PageProps = InertiaProps<{
+  path?: any
+}>
+
+function Section({
+  title,
+  description,
+  children,
+}: {
+  title: string
+  description: string
+  children: React.ReactNode
+}) {
+  return (
+    <div className="grid grid-cols-1 gap-x-8 gap-y-6 lg:grid-cols-[280px_1fr]">
+      <div className="space-y-1">
+        <h3 className="text-sm font-semibold">{title}</h3>
+        <p className="text-sm text-muted-foreground">{description}</p>
+      </div>
+      <div className="flex flex-col gap-4">{children}</div>
+    </div>
+  )
+}
+
+export default function AdminPathsForm({ path }: PageProps) {
+  const isEdit = !!path
+
+  const [showExistingThumbnail, setShowExistingThumbnail] = useState(!!path?.asset?.url)
+
+  // Asset picker state — when user picks from existing assets
+  const [selectedAsset, setSelectedAsset] = useState<AssetPickerAsset | null>(null)
+
+  const [{ files: thumbnailFiles, isDragging }, thumbnailActions] = useFileUpload({
+    accept: 'image/*',
+    multiple: false,
+  })
+
+  const thumbnailFileRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (thumbnailFileRef.current) {
+      if (thumbnailFiles.length > 0 && thumbnailFiles[0].file instanceof File) {
+        const dt = new DataTransfer()
+        dt.items.add(thumbnailFiles[0].file)
+        thumbnailFileRef.current.files = dt.files
+      } else {
+        thumbnailFileRef.current.value = ''
+      }
+    }
+  }, [thumbnailFiles])
+
+  return (
+    <>
+      <Head title={isEdit ? 'Edit Path' : 'Create Path'} />
+      <Header fixed>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink render={<Link route="admin.paths.index" />}>Paths</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{isEdit ? 'Edit Path' : 'Create Path'}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </Header>
+      <Main>
+        <Form
+          route={isEdit ? 'admin.paths.update' : 'admin.paths.create'}
+          routeParams={{ id: isEdit ? path.id : undefined }}
+        >
+          {({ processing }) => (
+            <div className="flex flex-col gap-8 py-4">
+              {/* Content */}
+              <Section title="Content" description="Title, description, and details of the path">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <Field name="name">
+                    <FieldLabel htmlFor="name">Name</FieldLabel>
+                    <Input
+                      type="text"
+                      id="name"
+                      required
+                      minLength={3}
+                      maxLength={255}
+                      defaultValue={path?.name ?? undefined}
+                      aria-label="Name"
+                    />
+                    <FieldError />
+                  </Field>
+                  <Field name="slug">
+                    <FieldLabel htmlFor="slug">Slug</FieldLabel>
+                    <Input
+                      type="text"
+                      id="slug"
+                      maxLength={255}
+                      defaultValue={path?.slug ?? undefined}
+                      aria-label="Slug"
+                    />
+                    <FieldError />
+                  </Field>
+                </div>
+                <Field name="description">
+                  <FieldLabel htmlFor="description">Description</FieldLabel>
+                  <Textarea
+                    id="description"
+                    rows={3}
+                    maxLength={255}
+                    defaultValue={path?.description ?? undefined}
+                    aria-label="Description"
+                  />
+                  <FieldError />
+                </Field>
+              </Section>
+
+              <Separator />
+
+              {/* Publishing */}
+              <Section title="Publishing" description="Control visibility and status">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <Field name="state">
+                    <FieldLabel>State</FieldLabel>
+                    <Select name="state" defaultValue={path?.state ?? States.DRAFT}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select state" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.values(States).map((state) => (
+                          <SelectItem key={state} value={state}>
+                            {state}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FieldError />
+                  </Field>
+                </div>
+                <Field name="isFeatured">
+                  <div className="flex items-center gap-2">
+                    <Switch id="isFeatured" name="isFeatured" defaultChecked={path?.isFeatured} />
+                    <FieldLabel htmlFor="isFeatured">Featured</FieldLabel>
+                  </div>
+                  <FieldError />
+                </Field>
+              </Section>
+
+              <Separator />
+
+              {/* Thumbnail */}
+              <Section title="Thumbnail" description="Path thumbnail image and metadata">
+                {/* Choose existing or upload new */}
+                <p className="text-sm font-medium">Image</p>
+                <div className="flex items-center gap-2">
+                  <AssetPicker
+                    type="thumbnail"
+                    onSelect={(asset) => {
+                      setSelectedAsset(asset)
+                      thumbnailActions.clearFiles()
+                      setShowExistingThumbnail(false)
+                    }}
+                  />
+                  <span className="text-xs text-muted-foreground">or</span>
+                  <Button
+                    variant="outline"
+                    type="button"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedAsset(null)
+                      thumbnailActions.openFileDialog()
+                    }}
+                  >
+                    <UploadIcon className="mr-1.5 size-3.5" />
+                    Upload New
+                  </Button>
+                </div>
+
+                {/* Selected existing asset preview */}
+                {selectedAsset && (
+                  <div className="relative overflow-hidden rounded-lg border-2 border-primary">
+                    {selectedAsset.url ? (
+                      <img
+                        src={selectedAsset.url}
+                        alt={selectedAsset.altText || 'Selected thumbnail'}
+                        className="block max-h-64 w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex min-h-36 items-center justify-center bg-muted">
+                        <ImageIcon className="size-8 text-muted-foreground/50" />
+                      </div>
+                    )}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-2 top-2 z-10 rounded-full bg-background/90 p-1 shadow-sm hover:bg-background"
+                      onClick={() => setSelectedAsset(null)}
+                    >
+                      <XIcon className="size-4" />
+                    </Button>
+                    <input type="hidden" name="thumbnail.assetId" value={selectedAsset.id} />
+                  </div>
+                )}
+
+                {/* Upload dropzone (hidden when asset is selected from picker) */}
+                {!selectedAsset && (
+                  <Field name="thumbnail.file">
+                    <Button
+                      variant="outline"
+                      type="button"
+                      aria-label="Upload thumbnail image"
+                      className={`relative flex cursor-pointer flex-col items-center justify-center overflow-hidden border-2 border-dashed transition-colors ${
+                        thumbnailFiles.length > 0 || (showExistingThumbnail && path?.asset?.url)
+                          ? '!h-auto min-h-0 !p-0'
+                          : 'min-h-36'
+                      } ${
+                        isDragging
+                          ? 'border-primary bg-primary/5'
+                          : 'border-muted-foreground/25 hover:border-muted-foreground/50'
+                      }`}
+                      onClick={thumbnailActions.openFileDialog}
+                      onDragEnter={thumbnailActions.handleDragEnter}
+                      onDragLeave={thumbnailActions.handleDragLeave}
+                      onDragOver={thumbnailActions.handleDragOver}
+                      onDrop={thumbnailActions.handleDrop}
+                    >
+                      {thumbnailFiles.length > 0 && thumbnailFiles[0].preview ? (
+                        <div className="group relative w-full">
+                          <img
+                            src={thumbnailFiles[0].preview}
+                            alt="Thumbnail preview"
+                            className="block max-h-64 w-full rounded-[5px] object-cover"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center rounded-[5px] bg-black/0 transition-colors group-hover:bg-black/30">
+                            <span className="rounded-md bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+                              Click to replace
+                            </span>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="absolute right-2 top-2 z-10 rounded-full bg-background/90 p-1 opacity-0 shadow-sm transition-opacity hover:bg-background group-hover:opacity-100"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              thumbnailActions.removeFile(thumbnailFiles[0].id)
+                            }}
+                          >
+                            <XIcon className="size-4" />
+                          </Button>
+                        </div>
+                      ) : showExistingThumbnail && path?.asset?.url ? (
+                        <div className="group relative w-full">
+                          <img
+                            src={path.asset.url}
+                            alt={path.asset.altText || 'Current thumbnail'}
+                            className="block max-h-64 w-full rounded-[5px] object-cover"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center rounded-[5px] bg-black/0 transition-colors group-hover:bg-black/30">
+                            <span className="rounded-md bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+                              Click to replace
+                            </span>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="absolute right-2 top-2 z-10 rounded-full bg-background/90 p-1 opacity-0 shadow-sm transition-opacity hover:bg-background group-hover:opacity-100"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setShowExistingThumbnail(false)
+                            }}
+                          >
+                            <XIcon className="size-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <>
+                          <UploadIcon className="size-8 text-muted-foreground/50" />
+                          <p className="text-sm text-muted-foreground">
+                            Click or drag and drop to upload
+                          </p>
+                          <p className="text-xs text-muted-foreground/70">
+                            PNG, JPG, GIF up to 5MB
+                          </p>
+                        </>
+                      )}
+                    </Button>
+                    <input {...thumbnailActions.getInputProps()} className="sr-only" />
+                    <input
+                      ref={thumbnailFileRef}
+                      type="file"
+                      name="thumbnail.file"
+                      accept="image/*"
+                      className="sr-only"
+                    />
+                    {isEdit && !showExistingThumbnail && thumbnailFiles.length === 0 && (
+                      <input type="hidden" name="thumbnail.file" value="null" />
+                    )}
+                    <FieldError />
+                  </Field>
+                )}
+                <Field name="thumbnail.altText">
+                  <FieldLabel htmlFor="thumbnailAltText">Alt Text</FieldLabel>
+                  <Input
+                    type="text"
+                    id="thumbnailAltText"
+                    name="thumbnail.altText"
+                    placeholder="Describe the image for accessibility"
+                    maxLength={255}
+                    aria-label="Thumbnail Alt Text"
+                    defaultValue={path?.asset?.altText ?? undefined}
+                  />
+                  <FieldError />
+                </Field>
+                <Field name="thumbnail.credit">
+                  <FieldLabel htmlFor="thumbnailCredit">Credit</FieldLabel>
+                  <Input
+                    type="text"
+                    id="thumbnailCredit"
+                    name="thumbnail.credit"
+                    placeholder="Image credit or source"
+                    maxLength={255}
+                    aria-label="Thumbnail Credit"
+                    defaultValue={path?.asset?.credit ?? undefined}
+                  />
+                  <FieldError />
+                </Field>
+              </Section>
+
+              <Separator />
+
+              {/* SEO */}
+              <Section title="SEO" description="Search engine optimization metadata">
+                <Field name="pageTitle">
+                  <FieldLabel htmlFor="pageTitle">Page Title</FieldLabel>
+                  <Input
+                    type="text"
+                    id="pageTitle"
+                    maxLength={255}
+                    defaultValue={path?.pageTitle ?? undefined}
+                    aria-label="Page Title"
+                  />
+                  <FieldError />
+                </Field>
+                <Field name="metaDescription">
+                  <FieldLabel htmlFor="metaDescription">Meta Description</FieldLabel>
+                  <Textarea
+                    id="metaDescription"
+                    rows={3}
+                    maxLength={255}
+                    defaultValue={path?.metaDescription ?? undefined}
+                    aria-label="Meta Description"
+                  />
+                  <FieldError />
+                </Field>
+              </Section>
+
+              <Separator />
+
+              {/* Actions */}
+              <div className="flex items-center justify-end gap-4">
+                <Link
+                  route="admin.paths.index"
+                  className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                >
+                  Cancel
+                </Link>
+                <Button type="submit" disabled={processing}>
+                  {isEdit ? 'Update Path' : 'Create Path'}
+                </Button>
+              </div>
+            </div>
+          )}
+        </Form>
+      </Main>
+    </>
+  )
+}
+
+AdminPathsForm.layout = (page: React.ReactElement) => <AdminLayout>{page}</AdminLayout>

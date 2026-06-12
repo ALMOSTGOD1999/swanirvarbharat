@@ -1,0 +1,6 @@
+export { default as GithubIcon } from './github_icon'
+export { default as TwitterIcon } from './twitter_icon'
+export { default as YoutubeIcon } from './youtube_icon'
+export { default as FacebookIcon } from './facebook_icon'
+export { default as InstagramIcon } from './instagram_icon'
+export { default as LinkedinIcon } from './linkedin_icon'

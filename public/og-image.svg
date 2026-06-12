@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Swanirvarbharat preview image">
+  <defs>
+    <clipPath id="emblem-clip">
+      <circle cx="180" cy="210" r="130" />
+    </clipPath>
+    <radialGradient id="glow" cx="50%" cy="40%" r="60%">
+      <stop offset="0" stop-color="#38BDF8" stop-opacity="0.3" />
+      <stop offset="0.5" stop-color="#22C55E" stop-opacity="0.1" />
+      <stop offset="1" stop-color="#0C4A6E" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="logo-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#22C55E" />
+      <stop offset="100%" stop-color="#F97316" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0C4A6E" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+  <rect x="0" y="580" width="1200" height="50" fill="#38BDF8" opacity="0.12" />
+  <g transform="translate(0, 10)">
+    <g clipPath="url(#emblem-clip)">
+      <circle cx="180" cy="210" r="130" fill="url(#logo-grad)" />
+    </g>
+    <circle cx="180" cy="210" r="130" fill="none" stroke="#FFFFFF" stroke-width="4" />
+    <g stroke="#FFFFFF" stroke-width="2.5" opacity="0.7">
+      <line x1="180" y1="95" x2="180" y2="325" />
+      <line x1="65" y1="210" x2="295" y2="210" />
+      <line x1="95.6" y1="125.6" x2="264.4" y2="294.4" />
+      <line x1="95.6" y1="294.4" x2="264.4" y2="125.6" />
+      <line x1="78" y1="155" x2="282" y2="265" />
+      <line x1="78" y1="265" x2="282" y2="155" />
+      <line x1="128" y1="98" x2="232" y2="322" />
+      <line x1="128" y1="322" x2="232" y2="98" />
+    </g>
+    <circle cx="180" cy="210" r="36" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.7" />
+    <circle cx="180" cy="210" r="12" fill="#FFFFFF" opacity="0.7" />
+  </g>
+  <text x="370" y="200" fill="#38BDF8" font-family="'Hahmlet', Georgia, serif" font-size="62" font-weight="700" letter-spacing="3">Swanirvarbharat</text>
+  <text x="370" y="280" fill="#FFFFFF" font-family="'Poppins', Arial, sans-serif" font-size="38" font-weight="500">Hospitality &amp; Spoken English.</text>
+  <text x="370" y="340" fill="#94A3B8" font-family="'Poppins', Arial, sans-serif" font-size="26">Hotel management, hospitality skills, and</text>
+  <text x="370" y="375" fill="#94A3B8" font-family="'Poppins', Arial, sans-serif" font-size="26">spoken English learning resources.</text>
+  <rect x="370" y="430" width="240" height="54" rx="27" fill="#22C55E" />
+  <text x="490" y="465" fill="#FFFFFF" font-family="'Poppins', Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle">Start Learning</text>
+</svg>

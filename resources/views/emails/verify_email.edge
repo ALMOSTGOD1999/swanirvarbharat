@@ -1,0 +1,26 @@
+@layout.email({ title: 'Verify your email address' })
+
+  @emails.paragraph()
+    Hi {{ user.username }},
+  @end
+
+  @emails.paragraph()
+    Thanks for creating an account. Please click the button below to verify your email address.
+    This link will be valid for the next 24 hours.
+  @end
+
+  @emails.button({ href })
+    Verify Email
+  @end
+
+  @!emails.signature()
+
+  @emails.paragraph()
+    If you did not create an account, you can safely ignore this email.
+  @end
+
+  @emails.paragraph()
+    <a href="{{ href }}">{{ href }}</a>
+  @end
+
+@end

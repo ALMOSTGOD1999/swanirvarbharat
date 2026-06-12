@@ -1,0 +1,922 @@
+{
+  "name": "adonisjs-docs-index",
+  "source": "https://docs.adonisjs.com/sitemap.xml",
+  "generatedAt": "2026-05-08T05:02:54.988Z",
+  "totals": {
+    "discovered": 101,
+    "indexed": 101,
+    "failed": 0
+  },
+  "pages": [
+    {
+      "title": "Configuration & Environment",
+      "url": "https://docs.adonisjs.com/configuration",
+      "mdUrl": "https://docs.adonisjs.com/configuration.md",
+      "category": "configuration",
+      "path": "configuration",
+      "status": "ok",
+      "description": "Learn how to manage configuration and environment variables in AdonisJS applications with type-safe validation."
+    },
+    {
+      "title": "Contributing",
+      "url": "https://docs.adonisjs.com/contributing",
+      "mdUrl": "https://docs.adonisjs.com/contributing.md",
+      "category": "contributing",
+      "path": "contributing",
+      "status": "ok",
+      "description": "Contributing to AdonisJS projects is a great way to give back to the community. This guide provides a general overview of how you can contribute to any AdonisJS project."
+    },
+    {
+      "title": "Deployment",
+      "url": "https://docs.adonisjs.com/deployment",
+      "mdUrl": "https://docs.adonisjs.com/deployment.md",
+      "category": "deployment",
+      "path": "deployment",
+      "status": "ok",
+      "description": "Learn how to build and deploy AdonisJS applications to production, including creating standalone builds and configuring production environments."
+    },
+    {
+      "title": "Development environment setup",
+      "url": "https://docs.adonisjs.com/dev-environment",
+      "mdUrl": "https://docs.adonisjs.com/dev-environment.md",
+      "category": "dev-environment",
+      "path": "dev-environment",
+      "status": "ok",
+      "description": "Learn how to configure an efficient development environment for building applications with AdonisJS."
+    },
+    {
+      "title": "Frequently Asked Questions",
+      "url": "https://docs.adonisjs.com/faqs",
+      "mdUrl": "https://docs.adonisjs.com/faqs.md",
+      "category": "faqs",
+      "path": "faqs",
+      "status": "ok",
+      "description": "Quick answers to the most common questions about AdonisJS, including framework sustainability, technical capabilities, and production readiness."
+    },
+    {
+      "title": "Folder structure",
+      "url": "https://docs.adonisjs.com/folder-structure",
+      "mdUrl": "https://docs.adonisjs.com/folder-structure.md",
+      "category": "folder-structure",
+      "path": "folder-structure",
+      "status": "ok",
+      "description": "Understand the default folder structure of an AdonisJS application and the role of each file and directory."
+    },
+    {
+      "title": "Governance",
+      "url": "https://docs.adonisjs.com/governance",
+      "mdUrl": "https://docs.adonisjs.com/governance.md",
+      "category": "governance",
+      "path": "governance",
+      "status": "ok",
+      "description": "Governance model for the AdonisJS project, outlining roles, responsibilities, and decision-making processes."
+    },
+    {
+      "title": "Command arguments",
+      "url": "https://docs.adonisjs.com/guides/ace/arguments",
+      "mdUrl": "https://docs.adonisjs.com/guides/ace/arguments.md",
+      "category": "ace",
+      "path": "guides/ace/arguments",
+      "status": "ok",
+      "description": "Learn about defining and processing command arguments in Ace commands."
+    },
+    {
+      "title": "Creating commands",
+      "url": "https://docs.adonisjs.com/guides/ace/creating-commands",
+      "mdUrl": "https://docs.adonisjs.com/guides/ace/creating-commands.md",
+      "category": "ace",
+      "path": "guides/ace/creating-commands",
+      "status": "ok",
+      "description": "Learn how to create custom Ace commands in AdonisJS"
+    },
+    {
+      "title": "Command flags",
+      "url": "https://docs.adonisjs.com/guides/ace/flags",
+      "mdUrl": "https://docs.adonisjs.com/guides/ace/flags.md",
+      "category": "ace",
+      "path": "guides/ace/flags",
+      "status": "ok",
+      "description": "Learn how to define and process command flags in Ace commands."
+    },
+    {
+      "title": "Ace Command line",
+      "url": "https://docs.adonisjs.com/guides/ace/introduction",
+      "mdUrl": "https://docs.adonisjs.com/guides/ace/introduction.md",
+      "category": "ace",
+      "path": "guides/ace/introduction",
+      "status": "ok",
+      "description": "Ace is a command line framework used by AdonisJS to create and run console commands."
+    },
+    {
+      "title": "Prompts",
+      "url": "https://docs.adonisjs.com/guides/ace/prompts",
+      "mdUrl": "https://docs.adonisjs.com/guides/ace/prompts.md",
+      "category": "ace",
+      "path": "guides/ace/prompts",
+      "status": "ok",
+      "description": "Prompts are terminal widgets for user input, using the @poppinss/prompts package. They support various types like input, password, and select, and are designed for easy testing integration."
+    },
+    {
+      "title": "REPL",
+      "url": "https://docs.adonisjs.com/guides/ace/repl",
+      "mdUrl": "https://docs.adonisjs.com/guides/ace/repl.md",
+      "category": "ace",
+      "path": "guides/ace/repl",
+      "status": "ok",
+      "description": "AdonisJS offers an application-aware REPL to interact with your application from the command line."
+    },
+    {
+      "title": "Terminal UI",
+      "url": "https://docs.adonisjs.com/guides/ace/terminal-ui",
+      "mdUrl": "https://docs.adonisjs.com/guides/ace/terminal-ui.md",
+      "category": "ace",
+      "path": "guides/ace/terminal-ui",
+      "status": "ok",
+      "description": "Ace Terminal UI utilizes the @poppinss/cliui package, offering tools to display logs, tables, and animations. Designed for testing, it includes a 'raw' mode to simplify log collection and assertions."
+    },
+    {
+      "title": "Access tokens guard",
+      "url": "https://docs.adonisjs.com/guides/auth/access-tokens-guard",
+      "mdUrl": "https://docs.adonisjs.com/guides/auth/access-tokens-guard.md",
+      "category": "auth",
+      "path": "guides/auth/access-tokens-guard",
+      "status": "ok",
+      "description": "Learn how to authenticate HTTP requests using opaque access tokens in AdonisJS."
+    },
+    {
+      "title": "Authorization",
+      "url": "https://docs.adonisjs.com/guides/auth/authorization",
+      "mdUrl": "https://docs.adonisjs.com/guides/auth/authorization.md",
+      "category": "auth",
+      "path": "guides/auth/authorization",
+      "status": "ok",
+      "description": "Learn how to implement authorization in AdonisJS using abilities and policies with the Bouncer package."
+    },
+    {
+      "title": "Basic auth guard",
+      "url": "https://docs.adonisjs.com/guides/auth/basic-auth-guard",
+      "mdUrl": "https://docs.adonisjs.com/guides/auth/basic-auth-guard.md",
+      "category": "auth",
+      "path": "guides/auth/basic-auth-guard",
+      "status": "ok",
+      "description": "Learn how to authenticate HTTP requests using the HTTP Basic Authentication protocol in AdonisJS."
+    },
+    {
+      "title": "Creating a custom auth guard",
+      "url": "https://docs.adonisjs.com/guides/auth/custom-auth-guard",
+      "mdUrl": "https://docs.adonisjs.com/guides/auth/custom-auth-guard.md",
+      "category": "auth",
+      "path": "guides/auth/custom-auth-guard",
+      "status": "ok",
+      "description": "Learn how to create a custom authentication guard for AdonisJS."
+    },
+    {
+      "title": "Authentication",
+      "url": "https://docs.adonisjs.com/guides/auth/introduction",
+      "mdUrl": "https://docs.adonisjs.com/guides/auth/introduction.md",
+      "category": "auth",
+      "path": "guides/auth/introduction",
+      "status": "ok",
+      "description": "Learn about the authentication system in AdonisJS and how to authenticate users in your application."
+    },
+    {
+      "title": "Session guard",
+      "url": "https://docs.adonisjs.com/guides/auth/session-guard",
+      "mdUrl": "https://docs.adonisjs.com/guides/auth/session-guard.md",
+      "category": "auth",
+      "path": "guides/auth/session-guard",
+      "status": "ok",
+      "description": "Learn how to authenticate users using the session guard in AdonisJS."
+    },
+    {
+      "title": "Social authentication",
+      "url": "https://docs.adonisjs.com/guides/auth/social-authentication",
+      "mdUrl": "https://docs.adonisjs.com/guides/auth/social-authentication.md",
+      "category": "auth",
+      "path": "guides/auth/social-authentication",
+      "status": "ok",
+      "description": "Implement social authentication in your AdonisJS applications using the @adonisjs/ally package."
+    },
+    {
+      "title": "Verifying user credentials",
+      "url": "https://docs.adonisjs.com/guides/auth/verifying-user-credentials",
+      "mdUrl": "https://docs.adonisjs.com/guides/auth/verifying-user-credentials.md",
+      "category": "auth",
+      "path": "guides/auth/verifying-user-credentials",
+      "status": "ok",
+      "description": "Learn how to securely verify user credentials in an AdonisJS application using the AuthFinder mixin."
+    },
+    {
+      "title": "Body Parser",
+      "url": "https://docs.adonisjs.com/guides/basics/body-parser",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/body-parser.md",
+      "category": "basics",
+      "path": "guides/basics/body-parser",
+      "status": "ok",
+      "description": "Learn how to configure the body parser to handle JSON, form data, and file uploads in AdonisJS applications."
+    },
+    {
+      "title": "Controllers",
+      "url": "https://docs.adonisjs.com/guides/basics/controllers",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/controllers.md",
+      "category": "basics",
+      "path": "guides/basics/controllers",
+      "status": "ok",
+      "description": "Learn how to create and use controllers to organize your route handlers in AdonisJS applications."
+    },
+    {
+      "title": "Debugging",
+      "url": "https://docs.adonisjs.com/guides/basics/debugging",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/debugging.md",
+      "category": "basics",
+      "path": "guides/basics/debugging",
+      "status": "ok",
+      "description": "Learn how to debug AdonisJS applications using VSCode, Node.js inspector, debug logs, and Edge template helpers."
+    },
+    {
+      "title": "Exception Handling",
+      "url": "https://docs.adonisjs.com/guides/basics/exception-handling",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/exception-handling.md",
+      "category": "basics",
+      "path": "guides/basics/exception-handling",
+      "status": "ok",
+      "description": "Learn how to handle and report exceptions during HTTP requests in AdonisJS applications."
+    },
+    {
+      "title": "File Uploads",
+      "url": "https://docs.adonisjs.com/guides/basics/file-uploads",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/file-uploads.md",
+      "category": "basics",
+      "path": "guides/basics/file-uploads",
+      "status": "ok",
+      "description": "Learn how to handle file uploads in AdonisJS, from basic single file uploads to advanced direct uploads with cloud storage providers."
+    },
+    {
+      "title": "HTTP Context",
+      "url": "https://docs.adonisjs.com/guides/basics/http-context",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/http-context.md",
+      "category": "basics",
+      "path": "guides/basics/http-context",
+      "status": "ok",
+      "description": "Learn about the HTTP context object in AdonisJS and how to access request-specific data and services."
+    },
+    {
+      "title": "Middleware",
+      "url": "https://docs.adonisjs.com/guides/basics/middleware",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/middleware.md",
+      "category": "basics",
+      "path": "guides/basics/middleware",
+      "status": "ok",
+      "description": "Learn how to use and create middleware in AdonisJS to handle cross-cutting concerns during HTTP requests."
+    },
+    {
+      "title": "Request",
+      "url": "https://docs.adonisjs.com/guides/basics/request",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/request.md",
+      "category": "basics",
+      "path": "guides/basics/request",
+      "status": "ok",
+      "description": "Learn how to work with HTTP requests in AdonisJS, including reading request data, headers, cookies, and handling trusted proxies."
+    },
+    {
+      "title": "Response",
+      "url": "https://docs.adonisjs.com/guides/basics/response",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/response.md",
+      "category": "basics",
+      "path": "guides/basics/response",
+      "status": "ok",
+      "description": "Learn how to construct HTTP responses in AdonisJS, including sending different response formats, headers, cookies, redirects, and file downloads."
+    },
+    {
+      "title": "Routing",
+      "url": "https://docs.adonisjs.com/guides/basics/routing",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/routing.md",
+      "category": "basics",
+      "path": "guides/basics/routing",
+      "status": "ok",
+      "description": "Define URL patterns, handle dynamic routes, create resource routes, and use the type-safe URL builder for navigation."
+    },
+    {
+      "title": "Sessions",
+      "url": "https://docs.adonisjs.com/guides/basics/session",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/session.md",
+      "category": "basics",
+      "path": "guides/basics/session",
+      "status": "ok",
+      "description": "Learn how to use sessions to persist state across HTTP requests in AdonisJS applications."
+    },
+    {
+      "title": "Static files server",
+      "url": "https://docs.adonisjs.com/guides/basics/static-file-server",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/static-file-server.md",
+      "category": "basics",
+      "path": "guides/basics/static-file-server",
+      "status": "ok",
+      "description": "Learn how to serve static files from the public directory using the @adonisjs/static package."
+    },
+    {
+      "title": "URL Builder",
+      "url": "https://docs.adonisjs.com/guides/basics/url-builder",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/url-builder.md",
+      "category": "basics",
+      "path": "guides/basics/url-builder",
+      "status": "ok",
+      "description": "Learn how to generate type-safe URLs for named routes in templates, redirects, and frontend applications."
+    },
+    {
+      "title": "Validation",
+      "url": "https://docs.adonisjs.com/guides/basics/validation",
+      "mdUrl": "https://docs.adonisjs.com/guides/basics/validation.md",
+      "category": "basics",
+      "path": "guides/basics/validation",
+      "status": "ok",
+      "description": "Learn how to validate user input in AdonisJS using VineJS validators at the controller level."
+    },
+    {
+      "title": "Application Lifecycle",
+      "url": "https://docs.adonisjs.com/guides/concepts/application-lifecycle",
+      "mdUrl": "https://docs.adonisjs.com/guides/concepts/application-lifecycle.md",
+      "category": "concepts",
+      "path": "guides/concepts/application-lifecycle",
+      "status": "ok",
+      "description": "Learn about the application lifecycle in AdonisJS, including the boot, start, and termination phases."
+    },
+    {
+      "title": "Assembler hooks",
+      "url": "https://docs.adonisjs.com/guides/concepts/assembler-hooks",
+      "mdUrl": "https://docs.adonisjs.com/guides/concepts/assembler-hooks.md",
+      "category": "concepts",
+      "path": "guides/concepts/assembler-hooks",
+      "status": "ok",
+      "description": "Learn how to use Assembler hooks to run custom actions during the development, testing, and build lifecycle of your AdonisJS application."
+    },
+    {
+      "title": "Barrel Files",
+      "url": "https://docs.adonisjs.com/guides/concepts/barrel-files",
+      "mdUrl": "https://docs.adonisjs.com/guides/concepts/barrel-files.md",
+      "category": "concepts",
+      "path": "guides/concepts/barrel-files",
+      "status": "ok",
+      "description": "Understand what barrel files are, why AdonisJS uses them, and how they help reduce visual clutter in your codebase."
+    },
+    {
+      "title": "Container Services",
+      "url": "https://docs.adonisjs.com/guides/concepts/container-services",
+      "mdUrl": "https://docs.adonisjs.com/guides/concepts/container-services.md",
+      "category": "concepts",
+      "path": "guides/concepts/container-services",
+      "status": "ok",
+      "description": "Learn about container services in AdonisJS and how they provide convenient access to framework components through ES module imports."
+    },
+    {
+      "title": "Dependency injection and the IoC container",
+      "url": "https://docs.adonisjs.com/guides/concepts/dependency-injection",
+      "mdUrl": "https://docs.adonisjs.com/guides/concepts/dependency-injection.md",
+      "category": "concepts",
+      "path": "guides/concepts/dependency-injection",
+      "status": "ok",
+      "description": "Learn how dependency injection works in AdonisJS and how to use the IoC container to manage class dependencies automatically."
+    },
+    {
+      "title": "Extending the framework",
+      "url": "https://docs.adonisjs.com/guides/concepts/extending-adonisjs",
+      "mdUrl": "https://docs.adonisjs.com/guides/concepts/extending-adonisjs.md",
+      "category": "concepts",
+      "path": "guides/concepts/extending-adonisjs",
+      "status": "ok",
+      "description": "Learn how to extend the AdonisJS framework using macros and getters."
+    },
+    {
+      "title": "Scaffolding and codemods",
+      "url": "https://docs.adonisjs.com/guides/concepts/scaffolding",
+      "mdUrl": "https://docs.adonisjs.com/guides/concepts/scaffolding.md",
+      "category": "concepts",
+      "path": "guides/concepts/scaffolding",
+      "status": "ok",
+      "description": "Learn how to create configure hooks for AdonisJS packages using stubs and codemods."
+    },
+    {
+      "title": "Service Providers",
+      "url": "https://docs.adonisjs.com/guides/concepts/service-providers",
+      "mdUrl": "https://docs.adonisjs.com/guides/concepts/service-providers.md",
+      "category": "concepts",
+      "path": "guides/concepts/service-providers",
+      "status": "ok",
+      "description": "Learn about service providers in AdonisJS and how to use lifecycle hooks to execute code during application startup and shutdown."
+    },
+    {
+      "title": "Lucid - SQL ORM",
+      "url": "https://docs.adonisjs.com/guides/database/lucid",
+      "mdUrl": "https://docs.adonisjs.com/guides/database/lucid.md",
+      "category": "database",
+      "path": "guides/database/lucid",
+      "status": "ok",
+      "description": "Learn how to use Lucid ORM, the official SQL ORM for AdonisJS, including models, query builder, migrations, and relationships."
+    },
+    {
+      "title": "Redis",
+      "url": "https://docs.adonisjs.com/guides/database/redis",
+      "mdUrl": "https://docs.adonisjs.com/guides/database/redis.md",
+      "category": "database",
+      "path": "guides/database/redis",
+      "status": "ok",
+      "description": "Use Redis inside your AdonisJS applications using the @adonisjs/redis package."
+    },
+    {
+      "title": "Cache",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/cache",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/cache.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/cache",
+      "status": "ok",
+      "description": "Learn how to use caching in AdonisJS applications to improve performance with multiple cache stores, multi-tier caching, and resiliency features."
+    },
+    {
+      "title": "Drive",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/drive",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/drive.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/drive",
+      "status": "ok",
+      "description": "Learn how to manage user-uploaded files using AdonisJS Drive, a unified API for local filesystem and cloud storage services like S3, GCS, R2, and more."
+    },
+    {
+      "title": "Event Emitter",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/emitter",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/emitter.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/emitter",
+      "status": "ok",
+      "description": "Learn how to use the AdonisJS event emitter to build event-driven applications with type-safe events and listeners."
+    },
+    {
+      "title": "Health checks",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/health-checks",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/health-checks.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/health-checks",
+      "status": "ok",
+      "description": "Learn how to add health checks to your AdonisJS application for monitoring liveness and readiness in production environments."
+    },
+    {
+      "title": "Internationalization and Localization",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/i18n",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/i18n.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/i18n",
+      "status": "ok",
+      "description": "Learn how to create web apps for multiple regions and languages using the @adonisjs/i18n package."
+    },
+    {
+      "title": "Atomic Locks",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/locks",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/locks.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/locks",
+      "status": "ok",
+      "description": "Learn how to use atomic locks in AdonisJS to prevent race conditions and coordinate concurrent operations."
+    },
+    {
+      "title": "Logger",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/logger",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/logger.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/logger",
+      "status": "ok",
+      "description": "Learn how to use the AdonisJS logger to write logs to the console, files, and external services. Built on top of Pino, the logger is fast and supports multiple targets."
+    },
+    {
+      "title": "Mail",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/mail",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/mail.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/mail",
+      "status": "ok",
+      "description": "Learn how to send emails from your AdonisJS application using the @adonisjs/mail package."
+    },
+    {
+      "title": "OpenTelemetry",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/opentelemetry",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/opentelemetry.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/opentelemetry",
+      "status": "ok",
+      "description": "Add distributed tracing and observability to your AdonisJS application with OpenTelemetry."
+    },
+    {
+      "title": "Queues",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/queues",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/queues.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/queues",
+      "status": "ok",
+      "description": "Learn how to use job queues in AdonisJS to process tasks in the background with support for retries, scheduling, and multiple backends."
+    },
+    {
+      "title": "Transmit",
+      "url": "https://docs.adonisjs.com/guides/digging-deeper/server-sent-events",
+      "mdUrl": "https://docs.adonisjs.com/guides/digging-deeper/server-sent-events.md",
+      "category": "digging-deeper",
+      "path": "guides/digging-deeper/server-sent-events",
+      "status": "ok",
+      "description": "Learn how to push real-time updates from server to client using Server-Sent Events with Transmit in AdonisJS."
+    },
+    {
+      "title": "Type-safe API client",
+      "url": "https://docs.adonisjs.com/guides/frontend/api-client",
+      "mdUrl": "https://docs.adonisjs.com/guides/frontend/api-client.md",
+      "category": "frontend",
+      "path": "guides/frontend/api-client",
+      "status": "ok",
+      "description": "Learn how to use Tuyau, a type-safe HTTP client for AdonisJS applications that enables end-to-end type safety between backend and frontend."
+    },
+    {
+      "title": "Edge Templates",
+      "url": "https://docs.adonisjs.com/guides/frontend/edgejs",
+      "mdUrl": "https://docs.adonisjs.com/guides/frontend/edgejs.md",
+      "category": "frontend",
+      "path": "guides/frontend/edgejs",
+      "status": "ok",
+      "description": "Learn how to use Edge templates in AdonisJS applications to render HTML on the server-side."
+    },
+    {
+      "title": "Inertia",
+      "url": "https://docs.adonisjs.com/guides/frontend/inertia",
+      "mdUrl": "https://docs.adonisjs.com/guides/frontend/inertia.md",
+      "category": "frontend",
+      "path": "guides/frontend/inertia",
+      "status": "ok",
+      "description": "Learn how to build modern single-page applications using Inertia with AdonisJS, React, and Vue."
+    },
+    {
+      "title": "TanStack Query Integration",
+      "url": "https://docs.adonisjs.com/guides/frontend/tanstack-query",
+      "mdUrl": "https://docs.adonisjs.com/guides/frontend/tanstack-query.md",
+      "category": "frontend",
+      "path": "guides/frontend/tanstack-query",
+      "status": "ok",
+      "description": "Learn how to integrate TanStack Query with Tuyau for type-safe API calls, infinite scrolling, and cache management in AdonisJS applications."
+    },
+    {
+      "title": "Transformers",
+      "url": "https://docs.adonisjs.com/guides/frontend/transformers",
+      "mdUrl": "https://docs.adonisjs.com/guides/frontend/transformers.md",
+      "category": "frontend",
+      "path": "guides/frontend/transformers",
+      "status": "ok",
+      "description": "Learn how to transform and serialize data in AdonisJS applications, including converting models to JSON and generating TypeScript types for frontend use."
+    },
+    {
+      "title": "Vite",
+      "url": "https://docs.adonisjs.com/guides/frontend/vite",
+      "mdUrl": "https://docs.adonisjs.com/guides/frontend/vite.md",
+      "category": "frontend",
+      "path": "guides/frontend/vite",
+      "status": "ok",
+      "description": "Learn how to use Vite to bundle frontend assets in AdonisJS applications."
+    },
+    {
+      "title": "CORS",
+      "url": "https://docs.adonisjs.com/guides/security/cors",
+      "mdUrl": "https://docs.adonisjs.com/guides/security/cors.md",
+      "category": "security",
+      "path": "guides/security/cors",
+      "status": "ok",
+      "description": "Learn how to implement CORS in AdonisJS to control cross-origin access to your API."
+    },
+    {
+      "title": "Encryption",
+      "url": "https://docs.adonisjs.com/guides/security/encryption",
+      "mdUrl": "https://docs.adonisjs.com/guides/security/encryption.md",
+      "category": "security",
+      "path": "guides/security/encryption",
+      "status": "ok",
+      "description": "Learn how to encrypt and decrypt sensitive data in your AdonisJS applications."
+    },
+    {
+      "title": "Hashing",
+      "url": "https://docs.adonisjs.com/guides/security/hashing",
+      "mdUrl": "https://docs.adonisjs.com/guides/security/hashing.md",
+      "category": "security",
+      "path": "guides/security/hashing",
+      "status": "ok",
+      "description": "Learn how to securely hash and verify passwords using the AdonisJS hash service."
+    },
+    {
+      "title": "Rate limiting",
+      "url": "https://docs.adonisjs.com/guides/security/rate-limiting",
+      "mdUrl": "https://docs.adonisjs.com/guides/security/rate-limiting.md",
+      "category": "security",
+      "path": "guides/security/rate-limiting",
+      "status": "ok",
+      "description": "Protect your web application or API server from abuse by implementing rate limits using the @adonisjs/limiter package."
+    },
+    {
+      "title": "Securing server-rendered applications",
+      "url": "https://docs.adonisjs.com/guides/security/securing-ssr-applications",
+      "mdUrl": "https://docs.adonisjs.com/guides/security/securing-ssr-applications.md",
+      "category": "security",
+      "path": "guides/security/securing-ssr-applications",
+      "status": "ok",
+      "description": "Learn how to protect your server-rendered applications from common web attacks using the @adonisjs/shield package."
+    },
+    {
+      "title": "API tests",
+      "url": "https://docs.adonisjs.com/guides/testing/api-tests",
+      "mdUrl": "https://docs.adonisjs.com/guides/testing/api-tests.md",
+      "category": "testing",
+      "path": "guides/testing/api-tests",
+      "status": "ok",
+      "description": "Learn how to test JSON API endpoints in AdonisJS using Japa's API client."
+    },
+    {
+      "title": "Browser tests",
+      "url": "https://docs.adonisjs.com/guides/testing/browser-tests",
+      "mdUrl": "https://docs.adonisjs.com/guides/testing/browser-tests.md",
+      "category": "testing",
+      "path": "guides/testing/browser-tests",
+      "status": "ok",
+      "description": "Learn how to write end-to-end browser tests for hypermedia and Inertia applications using Playwright."
+    },
+    {
+      "title": "Console tests",
+      "url": "https://docs.adonisjs.com/guides/testing/console-tests",
+      "mdUrl": "https://docs.adonisjs.com/guides/testing/console-tests.md",
+      "category": "testing",
+      "path": "guides/testing/console-tests",
+      "status": "ok",
+      "description": "Learn how to test custom Ace commands in AdonisJS applications."
+    },
+    {
+      "title": "Introduction to testing",
+      "url": "https://docs.adonisjs.com/guides/testing/introduction",
+      "mdUrl": "https://docs.adonisjs.com/guides/testing/introduction.md",
+      "category": "testing",
+      "path": "guides/testing/introduction",
+      "status": "ok",
+      "description": "Learn how testing is configured in AdonisJS applications using Japa, and how to create, run, and filter tests."
+    },
+    {
+      "title": "Resetting state between tests",
+      "url": "https://docs.adonisjs.com/guides/testing/resetting-state-between-tests",
+      "mdUrl": "https://docs.adonisjs.com/guides/testing/resetting-state-between-tests.md",
+      "category": "testing",
+      "path": "guides/testing/resetting-state-between-tests",
+      "status": "ok",
+      "description": "Learn how to manage application state during testing in AdonisJS, including database migrations, state cleanup, and test environment configuration."
+    },
+    {
+      "title": "Test doubles",
+      "url": "https://docs.adonisjs.com/guides/testing/test-doubles",
+      "mdUrl": "https://docs.adonisjs.com/guides/testing/test-doubles.md",
+      "category": "testing",
+      "path": "guides/testing/test-doubles",
+      "status": "ok",
+      "description": "Learn how to use test doubles in AdonisJS, including built-in fakes for Mail, Hash, Emitter, and Drive, container swaps for dependency injection, and time utilities for testing time-sensitive code."
+    },
+    {
+      "title": "Installation",
+      "url": "https://docs.adonisjs.com/installation",
+      "mdUrl": "https://docs.adonisjs.com/installation.md",
+      "category": "installation",
+      "path": "installation",
+      "status": "ok",
+      "description": "Learn how to create a new AdonisJS application and start the development server."
+    },
+    {
+      "title": "Introduction",
+      "url": "https://docs.adonisjs.com/introduction",
+      "mdUrl": "https://docs.adonisjs.com/introduction.md",
+      "category": "introduction",
+      "path": "introduction",
+      "status": "ok",
+      "description": "An overview of AdonisJS and the design principles behind it."
+    },
+    {
+      "title": "AdonisRC file",
+      "url": "https://docs.adonisjs.com/reference/adonisrc-rcfile",
+      "mdUrl": "https://docs.adonisjs.com/reference/adonisrc-rcfile.md",
+      "category": "reference",
+      "path": "reference/adonisrc-rcfile",
+      "status": "ok",
+      "description": "The adonisrc.ts file is used to configure the workspace settings of your application."
+    },
+    {
+      "title": "Application",
+      "url": "https://docs.adonisjs.com/reference/application",
+      "mdUrl": "https://docs.adonisjs.com/reference/application.md",
+      "category": "reference",
+      "path": "reference/application",
+      "status": "ok",
+      "description": "Learn about the Application class and how to access the environment, state, and make paths to project files."
+    },
+    {
+      "title": "Commands reference",
+      "url": "https://docs.adonisjs.com/reference/commands",
+      "mdUrl": "https://docs.adonisjs.com/reference/commands.md",
+      "category": "reference",
+      "path": "reference/commands",
+      "status": "ok",
+      "description": "Learn about the commands shipped with the AdonisJS framework core and official packages."
+    },
+    {
+      "title": "Edge helpers and tags",
+      "url": "https://docs.adonisjs.com/reference/edge",
+      "mdUrl": "https://docs.adonisjs.com/reference/edge.md",
+      "category": "reference",
+      "path": "reference/edge",
+      "status": "ok",
+      "description": "Learn about the helpers and tags contributed by the AdonisJS official packages to the Edge templating engine."
+    },
+    {
+      "title": "Events reference",
+      "url": "https://docs.adonisjs.com/reference/events",
+      "mdUrl": "https://docs.adonisjs.com/reference/events.md",
+      "category": "reference",
+      "path": "reference/events",
+      "status": "ok",
+      "description": "Learn about the events dispatched by the AdonisJS framework core and official packages."
+    },
+    {
+      "title": "Exceptions reference",
+      "url": "https://docs.adonisjs.com/reference/exceptions",
+      "mdUrl": "https://docs.adonisjs.com/reference/exceptions.md",
+      "category": "reference",
+      "path": "reference/exceptions",
+      "status": "ok",
+      "description": "Learn about the exceptions raised by the AdonisJS framework core and official packages."
+    },
+    {
+      "title": "Helpers reference",
+      "url": "https://docs.adonisjs.com/reference/helpers",
+      "mdUrl": "https://docs.adonisjs.com/reference/helpers.md",
+      "category": "reference",
+      "path": "reference/helpers",
+      "status": "ok",
+      "description": "AdonisJS bundles its utilities into the helpers module and makes them available to your application code."
+    },
+    {
+      "title": "Types helpers",
+      "url": "https://docs.adonisjs.com/reference/types-helpers",
+      "mdUrl": "https://docs.adonisjs.com/reference/types-helpers.md",
+      "category": "reference",
+      "path": "reference/types-helpers",
+      "status": "ok",
+      "description": "Reference guide for TypeScript type helper utilities available in AdonisJS for type inference and manipulation."
+    },
+    {
+      "title": "Releases",
+      "url": "https://docs.adonisjs.com/releases",
+      "mdUrl": "https://docs.adonisjs.com/releases.md",
+      "category": "releases",
+      "path": "releases",
+      "status": "ok",
+      "description": "AdonisJS release history and changelog, including new features, bug fixes, and breaking changes."
+    },
+    {
+      "title": "Pick your path",
+      "url": "https://docs.adonisjs.com/stacks-and-starter-kits",
+      "mdUrl": "https://docs.adonisjs.com/stacks-and-starter-kits.md",
+      "category": "stacks-and-starter-kits",
+      "path": "stacks-and-starter-kits",
+      "status": "ok",
+      "description": "Understand AdonisJS's approach to frontend development and choose between Hypermedia, Inertia, and API-only stacks for your application."
+    },
+    {
+      "title": "Authorization",
+      "url": "https://docs.adonisjs.com/tutorial/hypermedia/authorization",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/hypermedia/authorization.md",
+      "category": "tutorial",
+      "path": "tutorial/hypermedia/authorization",
+      "status": "ok",
+      "description": "Add authorization to the DevShow tutorial application using AdonisJS Bouncer policies to restrict editing and deleting of posts and comments."
+    },
+    {
+      "title": "Command line and REPL",
+      "url": "https://docs.adonisjs.com/tutorial/hypermedia/cli-and-repl",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/hypermedia/cli-and-repl.md",
+      "category": "tutorial",
+      "path": "tutorial/hypermedia/cli-and-repl",
+      "status": "ok",
+      "description": "Learn to use the AdonisJS Ace CLI and REPL to generate files and interact with your application during the DevShow tutorial."
+    },
+    {
+      "title": "Database and Models",
+      "url": "https://docs.adonisjs.com/tutorial/hypermedia/database-and-models",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/hypermedia/database-and-models.md",
+      "category": "tutorial",
+      "path": "tutorial/hypermedia/database-and-models",
+      "status": "ok",
+      "description": "Create models and database migrations for the DevShow tutorial application, define relationships, and seed test data using factories."
+    },
+    {
+      "title": "Forms and Validation",
+      "url": "https://docs.adonisjs.com/tutorial/hypermedia/forms-and-validation",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/hypermedia/forms-and-validation.md",
+      "category": "tutorial",
+      "path": "tutorial/hypermedia/forms-and-validation",
+      "status": "ok",
+      "description": "Add form handling and validation to the DevShow tutorial application to allow users to create posts and comments."
+    },
+    {
+      "title": "Building DevShow - A Community showcase website",
+      "url": "https://docs.adonisjs.com/tutorial/hypermedia/overview",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/hypermedia/overview.md",
+      "category": "tutorial",
+      "path": "tutorial/hypermedia/overview",
+      "status": "ok",
+      "description": "Build a fully functional community showcase website with AdonisJS and learn how to create hypermedia-driven web applications."
+    },
+    {
+      "title": "Routes, controllers and views",
+      "url": "https://docs.adonisjs.com/tutorial/hypermedia/routes-controller-views",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/hypermedia/routes-controller-views.md",
+      "category": "tutorial",
+      "path": "tutorial/hypermedia/routes-controller-views",
+      "status": "ok",
+      "description": "Build routes, controllers, and Edge template views for the DevShow tutorial application to display posts and comments."
+    },
+    {
+      "title": "Styling and Cleanup",
+      "url": "https://docs.adonisjs.com/tutorial/hypermedia/styling-and-cleanup",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/hypermedia/styling-and-cleanup.md",
+      "category": "tutorial",
+      "path": "tutorial/hypermedia/styling-and-cleanup",
+      "status": "ok",
+      "description": "Style and improve the user experience of the DevShow tutorial application by adding navigation, CSS, and visual polish."
+    },
+    {
+      "title": "Authorization",
+      "url": "https://docs.adonisjs.com/tutorial/react/authorization",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/react/authorization.md",
+      "category": "tutorial",
+      "path": "tutorial/react/authorization",
+      "status": "ok",
+      "description": "Add authorization to the DevShow React tutorial application using AdonisJS Bouncer policies to restrict editing and deleting of posts and comments."
+    },
+    {
+      "title": "Command line and REPL",
+      "url": "https://docs.adonisjs.com/tutorial/react/cli-and-repl",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/react/cli-and-repl.md",
+      "category": "tutorial",
+      "path": "tutorial/react/cli-and-repl",
+      "status": "ok",
+      "description": "Learn to use the AdonisJS Ace CLI and REPL to generate files and interact with your application during the DevShow React tutorial."
+    },
+    {
+      "title": "Database and Models",
+      "url": "https://docs.adonisjs.com/tutorial/react/database-and-models",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/react/database-and-models.md",
+      "category": "tutorial",
+      "path": "tutorial/react/database-and-models",
+      "status": "ok",
+      "description": "Create models and database migrations for the DevShow React tutorial application, define relationships, and seed test data using factories."
+    },
+    {
+      "title": "Forms and Validation",
+      "url": "https://docs.adonisjs.com/tutorial/react/forms-and-validation",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/react/forms-and-validation.md",
+      "category": "tutorial",
+      "path": "tutorial/react/forms-and-validation",
+      "status": "ok",
+      "description": "Add form handling and validation to the DevShow React tutorial application to allow users to create posts and comments using Inertia forms."
+    },
+    {
+      "title": "Building DevShow - A Community showcase website",
+      "url": "https://docs.adonisjs.com/tutorial/react/overview",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/react/overview.md",
+      "category": "tutorial",
+      "path": "tutorial/react/overview",
+      "status": "ok",
+      "description": "Build a fully functional community showcase website with AdonisJS, Inertia, and React, and learn how to create modern full-stack web applications."
+    },
+    {
+      "title": "Routes, controllers and views",
+      "url": "https://docs.adonisjs.com/tutorial/react/routes-controller-views",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/react/routes-controller-views.md",
+      "category": "tutorial",
+      "path": "tutorial/react/routes-controller-views",
+      "status": "ok",
+      "description": "Build routes, controllers, and React views using Inertia for the DevShow tutorial application to display posts and comments."
+    },
+    {
+      "title": "Styling and Cleanup",
+      "url": "https://docs.adonisjs.com/tutorial/react/styling-and-cleanup",
+      "mdUrl": "https://docs.adonisjs.com/tutorial/react/styling-and-cleanup.md",
+      "category": "tutorial",
+      "path": "tutorial/react/styling-and-cleanup",
+      "status": "ok",
+      "description": "Style and improve the user experience of the DevShow React tutorial application by adding navigation, CSS, and visual polish."
+    },
+    {
+      "title": "Upgrading from v6 to v7",
+      "url": "https://docs.adonisjs.com/v6-to-v7",
+      "mdUrl": "https://docs.adonisjs.com/v6-to-v7.md",
+      "category": "v6-to-v7",
+      "path": "v6-to-v7",
+      "status": "ok",
+      "description": "AdonisJS v7 is a major release after two years of v6. This guide covers the changes you must make to upgrade your existing v6 application."
+    }
+  ],
+  "failed": []
+}
