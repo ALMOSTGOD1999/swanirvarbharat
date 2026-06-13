@@ -3,7 +3,9 @@ FROM node:24-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci --legacy-peer-deps
+
+# Unset NODE_ENV so devDependencies are installed for the build
+RUN NODE_ENV=development npm ci --legacy-peer-deps
 
 COPY . .
 
