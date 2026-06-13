@@ -1,9 +1,8 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
-import drive from '@adonisjs/drive/services/main'
 import { cuid } from '#utils/id'
 import CandidateApplication from '#models/candidate_application'
-import User from '#models/user'
+import type User from '#models/user'
 
 /**
  * Application status flow:
@@ -59,7 +58,7 @@ export default class OnboardingController {
     await application.save()
 
     session.flash('success', 'Personal information saved.')
-    response.redirect().toRoute('onboarding.step', { step: 2 })
+    response.redirect().toRoute('onboarding.index')
   }
 
   /**
@@ -103,7 +102,7 @@ export default class OnboardingController {
     await application.save()
 
     session.flash('success', 'Document uploaded successfully.')
-    response.redirect().toRoute('onboarding.step', { step: 2 })
+    response.redirect().toRoute('onboarding.index')
   }
 
   /**
@@ -135,7 +134,7 @@ export default class OnboardingController {
     }
 
     session.flash('success', 'Document removed.')
-    response.redirect().toRoute('onboarding.step', { step: 2 })
+    response.redirect().toRoute('onboarding.index')
   }
 
   /**
@@ -155,7 +154,7 @@ export default class OnboardingController {
     await application.save()
 
     session.flash('success', 'Introduction video uploaded.')
-    response.redirect().toRoute('onboarding.step', { step: 3 })
+    response.redirect().toRoute('onboarding.index')
   }
 
   /**
@@ -182,7 +181,7 @@ export default class OnboardingController {
     await application.save()
 
     session.flash('success', 'KYC document uploaded.')
-    response.redirect().toRoute('onboarding.step', { step: 4 })
+    response.redirect().toRoute('onboarding.index')
   }
 
   /**
@@ -202,18 +201,7 @@ export default class OnboardingController {
 
     await application.save()
     session.flash('success', 'Purpose information saved.')
-    response.redirect().toRoute('onboarding.step', { step: 5 })
-  }
-
-  /**
-   * Step 6: Preview
-   */
-  async preview({ inertia, auth }: HttpContext) {
-    const user = auth.getUserOrFail()
-    const application = await CandidateApplication.findByOrFail('userId', user.id)
-    await application.load('user')
-
-    return inertia.render('onboarding/preview', { application: application.serialize() })
+    response.redirect().toRoute('onboarding.index')
   }
 
   /**
@@ -239,7 +227,6 @@ export default class OnboardingController {
 
     return inertia.render('onboarding/status', {
       application: application?.serialize() || null,
-      user: user.serialize(),
     })
   }
 

@@ -1,7 +1,6 @@
 import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
-import env from '#start/env'
 
 router
   .group(() => {
@@ -102,6 +101,6 @@ router
       .post('candidates/:id/remark', [controllers.admin.Candidates, 'remark'])
       .as('candidates.remark')
   })
-  .domain('admin.' + env.get('APP_DOMAIN'))
+  .prefix('admin')
   .use(middleware.admin())
   .as('admin')

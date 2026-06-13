@@ -72,11 +72,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <Menu>
           <MenuTrigger
             render={
-              <button className="inline-flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent transition-colors cursor-pointer" />
+              <button className="inline-flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent transition-colors cursor-pointer" />
             }
           >
             {user && (
-              <span className="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-medium"></span>
+              <>
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-medium uppercase">
+                  {user.username?.charAt(0) || '?'}
+                </span>
+                <div className="flex flex-col items-start text-left leading-tight">
+                  <span className="font-medium text-foreground text-sm">
+                    {user.username || 'User'}
+                  </span>
+                  <span className="text-xs text-muted-foreground">{user.email || ''}</span>
+                </div>
+              </>
             )}
           </MenuTrigger>
           <MenuPopup>

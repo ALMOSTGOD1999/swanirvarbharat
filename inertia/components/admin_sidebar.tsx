@@ -105,6 +105,11 @@ const navItems: AdminNavSection[] = [
         subject: 'role',
       },
       {
+        title: 'Candidates',
+        url: urlFor('admin.candidates.index'),
+        icon: UsersIcon,
+      },
+      {
         title: 'Assets',
         url: urlFor('admin.assets.index'),
         icon: ImageIcon,
@@ -158,9 +163,23 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
       <SidebarSeparator className="mx-0" />
       <SidebarFooter>
         <Menu>
-          <MenuTrigger render={<Button variant="ghost" className="w-full justify-start" />}>
+          <MenuTrigger
+            render={
+              <button className="inline-flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent transition-colors cursor-pointer" />
+            }
+          >
             {user && (
-              <span className="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-medium"></span>
+              <>
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-medium uppercase">
+                  {user.username?.charAt(0) || '?'}
+                </span>
+                <div className="flex flex-col items-start text-left leading-tight">
+                  <span className="font-medium text-foreground text-sm">
+                    {user.username || 'User'}
+                  </span>
+                  <span className="text-xs text-muted-foreground">{user.email || ''}</span>
+                </div>
+              </>
             )}
           </MenuTrigger>
           <MenuPopup>

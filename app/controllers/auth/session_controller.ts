@@ -8,6 +8,7 @@ import { loginValidator } from '#validators/user'
 import AuthAttempt from '#models/auth_attempt'
 import OnSignInSucceeded from '#actions/auth/on_signin_succeeded'
 import OnSignOutSucceeded from '#actions/auth/on_singout_succeeded'
+import { Roles } from '#enums/roles'
 
 export default class SessionController {
   async create({ inertia }: HttpContext) {
@@ -27,8 +28,8 @@ export default class SessionController {
 
     const user = await this.verifyCredentials(uid, password)
 
-    // Check if email is verified
-    if (!user.emailVerifiedAt) {
+    // Check if email is verified (skip for admin)
+    if (!user.emailVerifiedAt && user.roleId !== Roles.ADMIN) {
       session.flash('error', 'Please verify your email address before signing in.')
       return response.redirect().toRoute('auth.verify.notice')
     }
@@ -36,6 +37,16 @@ export default class SessionController {
     await auth.use('web').login(user)
     await AuthAttempt.clear(uid)
     await OnSignInSucceeded.run(ctx, user)
+
+    // Redirect admin users to the admin panel
+    if (
+      user.roleId === Roles.ADMIN ||
+      user.roleId === Roles.CONTRIBUTOR_LVL_1 ||
+      user.roleId === Roles.CONTRIBUTOR_LVL_2
+    ) {
+      session.flash('success', `Welcome to the admin panel, ${user.handle}!`)
+      return response.redirect().toRoute('admin.dashboard.index')
+    }
 
     // Check if user has completed onboarding
     const application = await CandidateApplication.findBy('userId', user.id)

@@ -79,7 +79,6 @@ router
       .as('onboarding.introVideo')
     router.post('/kyc', [controllers.auth.Onboarding, 'uploadKyc']).as('onboarding.kyc')
     router.post('/purpose', [controllers.auth.Onboarding, 'savePurpose']).as('onboarding.purpose')
-    router.get('/preview', [controllers.auth.Onboarding, 'preview']).as('onboarding.preview')
     router.post('/submit', [controllers.auth.Onboarding, 'submit']).as('onboarding.submit')
   })
   .prefix('onboarding')

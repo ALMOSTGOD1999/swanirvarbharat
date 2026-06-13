@@ -10,11 +10,9 @@ import Series from '#models/series'
 import { Roles } from '#enums/roles'
 import { States } from '#enums/states'
 import { PostTypes } from '#enums/posts'
-import { VideoTypes } from '#enums/videos'
 import { TaxonomyTypes } from '#enums/taxonomy'
 
 const now = () => DateTime.now().toJSDate()
-const daysAgo = (days: number) => DateTime.now().minus({ days }).toJSDate()
 
 export default class ContentSeeder extends BaseSeeder {
   async run() {
@@ -58,6 +56,7 @@ export default class ContentSeeder extends BaseSeeder {
       email: 'admin@swanirvarbharat.com',
       password: 'swanirvarbharat',
       roleId: Roles.ADMIN,
+      emailVerifiedAt: DateTime.now(),
     })
 
     await Profile.create({
@@ -204,15 +203,8 @@ export default class ContentSeeder extends BaseSeeder {
       await db.table('post_taxonomies').insert(postTaxonomies)
     }
 
-    // ------------------------------------------------------------------
     // 4. Series with video lessons (2 series × 4 lessons)
     // ------------------------------------------------------------------
-    const youtubeUrls = [
-      'https://www.youtube.com/watch?v=Npn-2qweD5k',
-      'https://www.youtube.com/watch?v=q0I3bzYUE1A',
-      'https://www.youtube.com/watch?v=zvK4-suEKnM',
-      'https://www.youtube.com/watch?v=0AGHmWdnsVM',
-    ]
 
     const seriesList = [
       {
@@ -325,8 +317,6 @@ export default class ContentSeeder extends BaseSeeder {
           postType: PostTypes.LESSON,
           state: States.PUBLIC,
           publishedAt: DateTime.now().minus({ days: 15 }),
-          videoType: VideoTypes.YOUTUBE,
-          videoUrl: youtubeUrls[lesson.videoIndex % youtubeUrls.length],
         })
 
         // Author link
