@@ -1,5 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
+import { existsSync, mkdirSync } from 'node:fs'
 import { cuid } from '#utils/id'
 import CandidateApplication from '#models/candidate_application'
 import type User from '#models/user'
@@ -245,10 +246,22 @@ export default class OnboardingController {
 
   private async handleUpload(file: any) {
     const fileName = `${cuid()}.${file.extname}`
-    const uploadDir = app.inProduction ? 'uploads' : 'uploads/dev'
+    const uploadDir = 'uploads'
     const filePath = `${uploadDir}/${fileName}`
 
-    await file.move(app.publicPath(filePath), { name: fileName })
+    // Ensure the uploads directory exists
+    const dir = app.publicPath(uploadDir)
+    if (!existsSync(dir)) {
+      mkdirSync(dir, { recursive: true })
+    }
+
+    const moved = await file.move(app.publicPath(uploadDir), { name: fileName })
+
+    if (!moved) {
+      throw new Error(
+        `File move failed: ${file.errors?.map((e: any) => e.message).join(', ') || 'Unknown error'}`
+      )
+    }
 
     return {
       url: `/${filePath}`,
