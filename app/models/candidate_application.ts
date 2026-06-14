@@ -29,10 +29,10 @@ export default class CandidateApplication extends AppSchema {
   declare educationalQualification: string | null
 
   // Document references (stored as JSON)
-  @column()
+  @column({ columnName: 'certificate_10th' })
   declare certificate10th: any | null
 
-  @column()
+  @column({ columnName: 'certificate_12th' })
   declare certificate12th: any | null
 
   @column()
