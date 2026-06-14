@@ -1,6 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
-import { existsSync, mkdirSync } from 'node:fs'
+import { existsSync, mkdirSync, copyFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { cuid } from '#utils/id'
 import CandidateApplication from '#models/candidate_application'
 import type User from '#models/user'
@@ -255,12 +256,12 @@ export default class OnboardingController {
       mkdirSync(dir, { recursive: true })
     }
 
-    const moved = await file.move(app.publicPath(uploadDir), { name: fileName })
-
-    if (!moved) {
-      throw new Error(
-        `File move failed: ${file.errors?.map((e: any) => e.message).join(', ') || 'Unknown error'}`
-      )
+    // Copy from temp path (autoProcess: true moves files to OS temp)
+    const destPath = join(app.publicPath(uploadDir), fileName)
+    if (file.tmpPath) {
+      copyFileSync(file.tmpPath, destPath)
+    } else {
+      throw new Error('File upload failed: no temp file available')
     }
 
     return {
