@@ -41,8 +41,35 @@ export default class OnboardingController {
         currentStep = 7
     }
 
+    const appData = application
+      ? {
+          id: application.id,
+          userId: application.userId,
+          status: application.status,
+          fullName: application.fullName,
+          gender: application.gender,
+          age: application.age,
+          educationalQualification: application.educationalQualification,
+          certificate10th: application.certificate10th,
+          certificate12th: application.certificate12th,
+          certificateGraduation: application.certificateGraduation,
+          certificatePostGraduation: application.certificatePostGraduation,
+          passportPhoto: application.passportPhoto,
+          introductionVideo: application.introductionVideo,
+          purposeVideo: application.purposeVideo,
+          kycType: application.kycType,
+          kycDocument: application.kycDocument,
+          purposeDescription: application.purposeDescription,
+          adminRemarks: application.adminRemarks,
+          reviewedBy: application.reviewedBy,
+          reviewedAt: application.reviewedAt,
+          createdAt: application.createdAt,
+          updatedAt: application.updatedAt,
+        }
+      : null
+
     return inertia.render('onboarding/index', {
-      application: application?.serialize() || null,
+      application: appData,
       currentStep,
     })
   }
@@ -270,8 +297,32 @@ export default class OnboardingController {
     const user = auth.getUserOrFail()
     const application = await CandidateApplication.findBy('userId', user.id)
 
+    const appData = application
+      ? {
+          id: application.id,
+          status: application.status,
+          fullName: application.fullName,
+          gender: application.gender,
+          age: application.age,
+          educationalQualification: application.educationalQualification,
+          certificate10th: application.certificate10th,
+          certificate12th: application.certificate12th,
+          certificateGraduation: application.certificateGraduation,
+          certificatePostGraduation: application.certificatePostGraduation,
+          passportPhoto: application.passportPhoto,
+          introductionVideo: application.introductionVideo,
+          purposeVideo: application.purposeVideo,
+          kycType: application.kycType,
+          kycDocument: application.kycDocument,
+          purposeDescription: application.purposeDescription,
+          adminRemarks: application.adminRemarks,
+          createdAt: application.createdAt,
+          updatedAt: application.updatedAt,
+        }
+      : null
+
     return inertia.render('onboarding/status', {
-      application: application?.serialize() || null,
+      application: appData,
     })
   }
 
