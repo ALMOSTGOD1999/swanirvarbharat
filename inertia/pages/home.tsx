@@ -124,63 +124,115 @@ export default function Home({
         {/* ── Hero ─────────────────────────────────────────────── */}
         <section className="relative flex min-h-[calc(100vh-5rem)] items-center justify-center overflow-hidden">
           {/* Background */}
-          <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-background to-primary/10" />
+          <div className="absolute inset-0 bg-linear-to-br from-primary/10 via-background to-secondary/10" />
 
-          {/* Floating decorative circles */}
-          <div className="absolute left-10 top-20 size-64 rounded-full bg-primary/10 blur-3xl" />
-          <div className="absolute right-20 top-40 size-48 rounded-full bg-primary/5 blur-2xl" />
-          <div className="absolute bottom-32 left-1/4 size-56 rounded-full bg-primary/8 blur-3xl" />
+          {/* Decorative elements */}
+          <div className="absolute -left-20 -top-20 size-96 rounded-full bg-primary/15 blur-3xl" />
+          <div className="absolute -right-20 top-60 size-80 rounded-full bg-secondary/15 blur-3xl" />
+          <div className="absolute bottom-40 left-1/3 size-64 rounded-full bg-warm/10 blur-3xl" />
 
-          {/* Content */}
-          <div className="relative z-10 px-4 text-center">
-            <motion.div variants={heroText} initial="hidden" animate="visible" custom={0}>
-              <span className="mb-8 inline-block rounded-full border border-border bg-muted/50 px-5 py-2 text-sm font-medium text-muted-foreground backdrop-blur-sm">
-                Free learning resources for everyone
-              </span>
-            </motion.div>
+          <div className="relative z-10 mx-auto max-w-6xl px-5">
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+              {/* Left: Text Content */}
+              <div className="text-center lg:text-left">
+                <motion.div variants={heroText} initial="hidden" animate="visible" custom={0}>
+                  <span className="mb-6 inline-block rounded-full border border-primary/20 bg-primary/5 px-5 py-2 text-sm font-medium text-primary backdrop-blur-sm">
+                    Star Campus Placement
+                  </span>
+                </motion.div>
 
-            <motion.h1
-              className="mb-4 text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
-              variants={heroText}
-              initial="hidden"
-              animate="visible"
-              custom={0.2}
-            >
-              Learn New
-              <span className="block mt-2 text-primary">Skills & Topics</span>
-            </motion.h1>
+                <motion.h1
+                  className="mb-6 text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
+                  variants={heroText}
+                  initial="hidden"
+                  animate="visible"
+                  custom={0.2}
+                >
+                  Hotel Management
+                  <span className="block mt-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    &amp; Spoken English
+                  </span>
+                </motion.h1>
 
-            <motion.p
-              className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground sm:text-xl"
-              variants={heroText}
-              initial="hidden"
-              animate="visible"
-              custom={0.5}
-            >
-              Video lessons, blog posts, and learning resources on hotel management, hospitality,
-              and spoken English.
-            </motion.p>
+                <motion.p
+                  className="mb-8 max-w-2xl text-lg text-muted-foreground sm:text-xl"
+                  variants={heroText}
+                  initial="hidden"
+                  animate="visible"
+                  custom={0.5}
+                >
+                  Industry-focused training with guaranteed placement support in top hotel chains.
+                  Learn from experts and launch your hospitality career.
+                </motion.p>
 
-            <motion.div
-              className="flex flex-col items-center justify-center gap-4 sm:flex-row"
-              variants={heroText}
-              initial="hidden"
-              animate="visible"
-              custom={0.8}
-            >
-              <Link
-                href="/series"
-                className={cn(buttonVariants({ size: 'lg' }), 'gap-2 px-8 text-base')}
-              >
-                Browse Series <ArrowRight className="size-4" />
-              </Link>
-              <Link
-                href="/posts"
-                className={cn(buttonVariants({ size: 'lg', variant: 'outline' }), 'px-8 text-base')}
-              >
-                All Posts
-              </Link>
-            </motion.div>
+                <motion.div
+                  className="flex flex-col gap-4 sm:flex-row"
+                  variants={heroText}
+                  initial="hidden"
+                  animate="visible"
+                  custom={0.8}
+                >
+                  <Link
+                    href="/series"
+                    className={cn(buttonVariants({ size: 'lg' }), 'gap-2 px-8 text-base')}
+                  >
+                    Start Learning <ArrowRight className="size-4" />
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className={cn(
+                      buttonVariants({ size: 'lg', variant: 'secondary' }),
+                      'px-8 text-base'
+                    )}
+                  >
+                    Enroll Now
+                  </Link>
+                </motion.div>
+              </div>
+              <div className="hidden lg:block">
+                <motion.div
+                  className="rounded-2xl border bg-card p-8 shadow-lg"
+                  variants={heroText}
+                  initial="hidden"
+                  animate="visible"
+                  custom={0.3}
+                >
+                  <div className="mb-6 grid grid-cols-2 gap-4">
+                    <div className="rounded-xl bg-primary/5 p-4 text-center">
+                      <p className="text-3xl font-bold text-primary">500+</p>
+                      <p className="text-sm text-muted-foreground">Students Placed</p>
+                    </div>
+                    <div className="rounded-xl bg-secondary/5 p-4 text-center">
+                      <p className="text-3xl font-bold text-secondary">50+</p>
+                      <p className="text-sm text-muted-foreground">Partner Hotels</p>
+                    </div>
+                    <div className="rounded-xl bg-warm/5 p-4 text-center">
+                      <p className="text-3xl font-bold text-warm-600">92%</p>
+                      <p className="text-sm text-muted-foreground">Placement Rate</p>
+                    </div>
+                    <div className="rounded-xl bg-primary/5 p-4 text-center">
+                      <p className="text-3xl font-bold text-primary">5L</p>
+                      <p className="text-sm text-muted-foreground">Avg Salary</p>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="mb-3 text-center text-sm font-medium text-muted-foreground">
+                      PLACEMENT PARTNERS
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-3">
+                      {['Taj', 'Marriott', 'Hyatt', 'Oberoi', 'IHCL', 'Radisson'].map((name) => (
+                        <div
+                          key={name}
+                          className="rounded-lg border bg-muted/30 px-4 py-2 text-sm font-semibold text-muted-foreground"
+                        >
+                          {name}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
           </div>
 
           {/* Scroll nudge */}
