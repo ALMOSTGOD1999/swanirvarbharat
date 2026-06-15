@@ -197,6 +197,326 @@ export default function Home({
                   animate="visible"
                   custom={0.3}
                 >
+                  {/* Hero Illustration */}
+                  <div className="mb-6 flex justify-center">
+                    <svg
+                      viewBox="0 0 400 200"
+                      className="w-full max-w-sm"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {/* Background glow */}
+                      <circle cx="200" cy="100" r="90" fill="url(#heroGlow)" />
+                      <defs>
+                        <radialGradient id="heroGlow">
+                          <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.15" />
+                          <stop offset="100%" stopColor="#38BDF8" stopOpacity="0" />
+                        </radialGradient>
+                      </defs>
+                      {/* Hotel Building */}
+                      <rect
+                        x="155"
+                        y="60"
+                        width="90"
+                        height="110"
+                        rx="6"
+                        fill="#38BDF8"
+                        opacity="0.2"
+                      />
+                      <rect
+                        x="155"
+                        y="60"
+                        width="90"
+                        height="110"
+                        rx="6"
+                        stroke="#38BDF8"
+                        strokeWidth="1.5"
+                        opacity="0.6"
+                      />
+                      {/* Hotel roof */}
+                      <rect
+                        x="148"
+                        y="52"
+                        width="104"
+                        height="10"
+                        rx="3"
+                        fill="#38BDF8"
+                        opacity="0.4"
+                      />
+                      {/* Building stripe */}
+                      <rect x="155" y="95" width="90" height="3" fill="#38BDF8" opacity="0.3" />
+                      <rect x="155" y="130" width="90" height="3" fill="#38BDF8" opacity="0.3" />
+                      {/* Windows row 1 */}
+                      <rect
+                        x="170"
+                        y="68"
+                        width="12"
+                        height="18"
+                        rx="2"
+                        fill="#38BDF8"
+                        opacity="0.7"
+                      />
+                      <rect
+                        x="190"
+                        y="68"
+                        width="12"
+                        height="18"
+                        rx="2"
+                        fill="#22C55E"
+                        opacity="0.6"
+                      />
+                      <rect
+                        x="210"
+                        y="68"
+                        width="12"
+                        height="18"
+                        rx="2"
+                        fill="#F97316"
+                        opacity="0.7"
+                      />
+                      {/* Windows row 2 */}
+                      <rect
+                        x="170"
+                        y="102"
+                        width="12"
+                        height="18"
+                        rx="2"
+                        fill="#F97316"
+                        opacity="0.7"
+                      />
+                      <rect
+                        x="190"
+                        y="102"
+                        width="12"
+                        height="18"
+                        rx="2"
+                        fill="#38BDF8"
+                        opacity="0.7"
+                      />
+                      <rect
+                        x="210"
+                        y="102"
+                        width="12"
+                        height="18"
+                        rx="2"
+                        fill="#22C55E"
+                        opacity="0.6"
+                      />
+                      {/* Windows row 3 */}
+                      <rect
+                        x="170"
+                        y="138"
+                        width="12"
+                        height="18"
+                        rx="2"
+                        fill="#22C55E"
+                        opacity="0.6"
+                      />
+                      <rect
+                        x="210"
+                        y="138"
+                        width="12"
+                        height="18"
+                        rx="2"
+                        fill="#38BDF8"
+                        opacity="0.7"
+                      />
+                      {/* Door */}
+                      <rect
+                        x="190"
+                        y="142"
+                        width="20"
+                        height="28"
+                        rx="3"
+                        fill="#38BDF8"
+                        opacity="0.5"
+                      />
+                      {/* Star icon on building */}
+                      <text
+                        x="200"
+                        y="90"
+                        textAnchor="middle"
+                        fontSize="10"
+                        fill="#F97316"
+                        opacity="0.8"
+                      >
+                        ★
+                      </text>
+                      {/* Left pillar */}
+                      <rect
+                        x="130"
+                        y="95"
+                        width="18"
+                        height="75"
+                        rx="3"
+                        fill="#22C55E"
+                        fillOpacity="0.15"
+                        stroke="#22C55E"
+                        strokeWidth="1"
+                        strokeOpacity="0.4"
+                      />
+                      <rect
+                        x="130"
+                        y="88"
+                        width="18"
+                        height="10"
+                        rx="3"
+                        fill="#22C55E"
+                        opacity="0.3"
+                      />
+                      {/* Right pillar */}
+                      <rect
+                        x="252"
+                        y="95"
+                        width="18"
+                        height="75"
+                        rx="3"
+                        fill="#F97316"
+                        fillOpacity="0.15"
+                        stroke="#F97316"
+                        strokeWidth="1"
+                        strokeOpacity="0.4"
+                      />
+                      <rect
+                        x="252"
+                        y="88"
+                        width="18"
+                        height="10"
+                        rx="3"
+                        fill="#F97316"
+                        opacity="0.3"
+                      />
+                      {/* Graduation cap */}
+                      <g transform="translate(115, 25)">
+                        <path d="M8 12 L30 4 L52 12 L30 20 Z" fill="#F97316" opacity="0.8" />
+                        <rect
+                          x="27"
+                          y="20"
+                          width="6"
+                          height="10"
+                          rx="2"
+                          fill="#F97316"
+                          opacity="0.8"
+                        />
+                        <line
+                          x1="18"
+                          y1="16"
+                          x2="18"
+                          y2="28"
+                          stroke="#F97316"
+                          strokeWidth="2"
+                          opacity="0.5"
+                          strokeDasharray="2 2"
+                        />
+                        <line
+                          x1="42"
+                          y1="16"
+                          x2="42"
+                          y2="28"
+                          stroke="#22C55E"
+                          strokeWidth="2"
+                          opacity="0.5"
+                          strokeDasharray="2 2"
+                        />
+                      </g>
+                      {/* Globe */}
+                      <g transform="translate(275, 30)">
+                        <circle
+                          cx="15"
+                          cy="15"
+                          r="14"
+                          fill="none"
+                          stroke="#22C55E"
+                          strokeWidth="1.5"
+                          opacity="0.6"
+                        />
+                        <ellipse
+                          cx="15"
+                          cy="15"
+                          rx="8"
+                          ry="14"
+                          fill="none"
+                          stroke="#22C55E"
+                          strokeWidth="0.8"
+                          opacity="0.4"
+                        />
+                        <line
+                          x1="1"
+                          y1="15"
+                          x2="29"
+                          y2="15"
+                          stroke="#22C55E"
+                          strokeWidth="0.8"
+                          opacity="0.4"
+                        />
+                        <path
+                          d="M8 5 Q15 12 22 5"
+                          fill="none"
+                          stroke="#22C55E"
+                          strokeWidth="0.8"
+                          opacity="0.4"
+                        />
+                        <path
+                          d="M8 25 Q15 18 22 25"
+                          fill="none"
+                          stroke="#22C55E"
+                          strokeWidth="0.8"
+                          opacity="0.4"
+                        />
+                      </g>
+                      {/* Speech bubbles for Spoken English */}
+                      <g transform="translate(65, 120)">
+                        <rect
+                          x="0"
+                          y="0"
+                          width="45"
+                          height="28"
+                          rx="14"
+                          fill="#38BDF8"
+                          opacity="0.15"
+                        />
+                        <text
+                          x="22"
+                          y="19"
+                          textAnchor="middle"
+                          fontSize="12"
+                          fill="#38BDF8"
+                          opacity="0.8"
+                        >
+                          Hello
+                        </text>
+                      </g>
+                      <g transform="translate(290, 140)">
+                        <rect
+                          x="0"
+                          y="0"
+                          width="45"
+                          height="28"
+                          rx="14"
+                          fill="#22C55E"
+                          opacity="0.15"
+                        />
+                        <text
+                          x="22"
+                          y="19"
+                          textAnchor="middle"
+                          fontSize="12"
+                          fill="#22C55E"
+                          opacity="0.8"
+                        >
+                          Welcome
+                        </text>
+                      </g>
+                      {/* Small decorative dots */}
+                      <circle cx="60" cy="45" r="3" fill="#38BDF8" opacity="0.4" />
+                      <circle cx="340" cy="55" r="2" fill="#F97316" opacity="0.4" />
+                      <circle cx="80" cy="75" r="2" fill="#22C55E" opacity="0.3" />
+                      <circle cx="320" cy="80" r="3" fill="#38BDF8" opacity="0.3" />
+                      <circle cx="340" cy="170" r="2" fill="#F97316" opacity="0.4" />
+                      <circle cx="55" cy="165" r="2" fill="#22C55E" opacity="0.3" />
+                    </svg>
+                  </div>
+
                   <div className="mb-6 grid grid-cols-2 gap-4">
                     <div className="rounded-xl bg-primary/5 p-4 text-center">
                       <p className="text-3xl font-bold text-primary">500+</p>
