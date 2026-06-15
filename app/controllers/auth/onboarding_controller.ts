@@ -23,7 +23,17 @@ export default class OnboardingController {
     let currentStep = 1
     if (application) {
       if (application.fullName) currentStep = 2
-      if (application.certificate10th) currentStep = 3
+
+      // Step 2 (Documents): require at least 3 documents before advancing
+      const docsCount = [
+        application.certificate10th,
+        application.certificate12th,
+        application.certificateGraduation,
+        application.certificatePostGraduation,
+        application.passportPhoto,
+      ].filter(Boolean).length
+      if (docsCount >= 3) currentStep = 3
+
       if (application.introductionVideo) currentStep = 4
       if (application.kycDocument) currentStep = 5
       if (application.purposeVideo || application.purposeDescription) currentStep = 6
@@ -212,6 +222,39 @@ export default class OnboardingController {
   async submit({ response, auth, session }: HttpContext) {
     const user = auth.getUserOrFail()
     const application = await CandidateApplication.findByOrFail('userId', user.id)
+
+    // Validate required fields before submission
+    const docsCount = [
+      application.certificate10th,
+      application.certificate12th,
+      application.passportPhoto,
+    ].filter(Boolean).length
+
+    if (!application.fullName || !application.gender || !application.educationalQualification) {
+      session.flash(
+        'error',
+        'Please complete all required fields in Step 1 (Personal Information).'
+      )
+      return response.redirect().toRoute('onboarding.index')
+    }
+
+    if (docsCount < 3) {
+      session.flash(
+        'error',
+        'Please upload at least 3 required documents (10th, 12th, Passport Photo).'
+      )
+      return response.redirect().toRoute('onboarding.index')
+    }
+
+    if (!application.introductionVideo) {
+      session.flash('error', 'Please upload your introduction video.')
+      return response.redirect().toRoute('onboarding.index')
+    }
+
+    if (!application.kycDocument) {
+      session.flash('error', 'Please upload your KYC document.')
+      return response.redirect().toRoute('onboarding.index')
+    }
 
     application.status = 'submitted'
     await application.save()

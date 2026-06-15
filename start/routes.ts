@@ -96,8 +96,14 @@ router
     router.get('/:slug', [controllers.Series, 'show'])
   })
   .prefix('series')
+  .use(middleware.auth())
+  .use(middleware.approved())
 
-router.get('/courses/:slug', [controllers.Courses, 'show']).as('courses.show')
+router
+  .get('/courses/:slug', [controllers.Courses, 'show'])
+  .as('courses.show')
+  .use(middleware.auth())
+  .use(middleware.approved())
 
 router
   .group(() => {
@@ -124,14 +130,26 @@ router
       .as('series.memberEnrollments.update')
   })
   .use(middleware.auth())
+  .use(middleware.approved())
 
-router.on('/dashboard').renderInertia('dashboard', {}).as('dashboard').use(middleware.auth())
+router
+  .on('/dashboard')
+  .renderInertia('dashboard', {})
+  .as('dashboard')
+  .use(middleware.auth())
+  .use(middleware.approved())
 
 // <------------------------- LESSONS ------------------------------->
-router.get('/lessons', [controllers.Lessons, 'index']).as('lessons.index')
+router
+  .get('/lessons', [controllers.Lessons, 'index'])
+  .as('lessons.index')
+  .use(middleware.auth())
+  .use(middleware.approved())
 router
   .patch('/lessons/set-default-panel', [controllers.LessonPreferences, 'setDefaultPanel'])
   .as('lessons.setDefaultPanel')
+  .use(middleware.auth())
+  .use(middleware.approved())
 router
   .patch('/lessons/:slug/watchlist', [controllers.Watchlists, 'toggleLesson'])
   .as('lessons.watchlist')
@@ -139,7 +157,13 @@ router
 router
   .patch('/lessons/:slug/autoplay', [controllers.LessonPreferences, 'toggleAutoplay'])
   .as('lessons.autoplay')
-router.get('/lessons/:slug', [controllers.Lessons, 'show']).as('lessons.show')
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .get('/lessons/:slug', [controllers.Lessons, 'show'])
+  .as('lessons.show')
+  .use(middleware.auth())
+  .use(middleware.approved())
 
 router
   .group(() => {
@@ -166,12 +190,29 @@ router
   .prefix('settings')
   .use(middleware.auth())
 
-router.get('/topics', [controllers.Topics, 'index'])
-router.get('/topics/:slug', [controllers.Topics, 'show'])
-router.get('/blog', [controllers.Blogs, 'index']).as('blogs.index')
-router.get('/blog/:slug', [controllers.Blogs, 'show']).as('blogs.show')
-router.get('/posts', [controllers.Posts, 'index'])
-router.get('/posts/:slug', [controllers.Posts, 'show'])
+router
+  .get('/topics', [controllers.Topics, 'index'])
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .get('/topics/:slug', [controllers.Topics, 'show'])
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .get('/blog', [controllers.Blogs, 'index'])
+  .as('blogs.index')
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .get('/blog/:slug', [controllers.Blogs, 'show'])
+  .as('blogs.show')
+  .use(middleware.auth())
+  .use(middleware.approved())
+router.get('/posts', [controllers.Posts, 'index']).use(middleware.auth()).use(middleware.approved())
+router
+  .get('/posts/:slug', [controllers.Posts, 'show'])
+  .use(middleware.auth())
+  .use(middleware.approved())
 
 // <------------------------- COMMENTS ------------------------------->
 router
@@ -182,13 +223,41 @@ router
   .use(middleware.auth())
 
 // <------------------------- DISCUSSIONS ------------------------------->
-router.get('/forum', [controllers.Discussions, 'index']).as('discussions.index')
-router.get('/forum/create', [controllers.Discussions, 'create']).as('discussions.create')
-router.post('/forum', [controllers.Discussions, 'store']).as('discussions.store')
-router.get('/forum/:slug', [controllers.Discussions, 'show']).as('discussions.show')
-router.get('/forum/:slug/edit', [controllers.Discussions, 'edit']).as('discussions.edit')
-router.put('/forum/:slug', [controllers.Discussions, 'update']).as('discussions.update')
-router.delete('/forum/:slug', [controllers.Discussions, 'destroy']).as('discussions.destroy')
+router
+  .get('/forum', [controllers.Discussions, 'index'])
+  .as('discussions.index')
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .get('/forum/create', [controllers.Discussions, 'create'])
+  .as('discussions.create')
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .post('/forum', [controllers.Discussions, 'store'])
+  .as('discussions.store')
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .get('/forum/:slug', [controllers.Discussions, 'show'])
+  .as('discussions.show')
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .get('/forum/:slug/edit', [controllers.Discussions, 'edit'])
+  .as('discussions.edit')
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .put('/forum/:slug', [controllers.Discussions, 'update'])
+  .as('discussions.update')
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .delete('/forum/:slug', [controllers.Discussions, 'destroy'])
+  .as('discussions.destroy')
+  .use(middleware.auth())
+  .use(middleware.approved())
 router
   .group(() => {
     router
@@ -201,14 +270,22 @@ router
   .use(middleware.auth())
 
 // <------------------------- SEARCH ------------------------------->
-router.get('/search', [controllers.Search, 'index']).as('search')
+router
+  .get('/search', [controllers.Search, 'index'])
+  .as('search')
+  .use(middleware.auth())
+  .use(middleware.approved())
 
 // <------------------------- SYNDICATION ------------------------------->
 router.get('/rss', [controllers.Rss, 'index']).as('rss')
 router.get('/sitemap.xml', [controllers.Sitemap, 'index']).as('sitemap')
 
 // <------------------------- PUBLIC PROFILE ------------------------------->
-router.get('/:handle', [controllers.Profiles, 'show']).as('profiles.show')
+router
+  .get('/:handle', [controllers.Profiles, 'show'])
+  .as('profiles.show')
+  .use(middleware.auth())
+  .use(middleware.approved())
 
 // <------------------------- ASSETS ------------------------------->
 router.attachments()
