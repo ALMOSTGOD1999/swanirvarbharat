@@ -139,6 +139,8 @@ router
   .use(middleware.auth())
   .use(middleware.approved())
 
+router.on('/my-progress').renderInertia('my_progress', {}).as('my-progress').use(middleware.auth())
+
 // <------------------------- LESSONS ------------------------------->
 router
   .get('/lessons', [controllers.Lessons, 'index'])
@@ -174,6 +176,10 @@ router
   .as('lessons.assessment.submit')
   .use(middleware.auth())
   .use(middleware.approved())
+router
+  .get('/api/assessments/history', [controllers.Assessments, 'history'])
+  .as('assessments.history')
+  .use(middleware.auth())
 
 router
   .group(() => {

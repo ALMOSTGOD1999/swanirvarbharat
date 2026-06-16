@@ -3,6 +3,7 @@ import type { Data } from '@generated/data'
 import { router } from '@inertiajs/react'
 import {
   ArrowLeft,
+  ArrowRight,
   BookOpen,
   CheckCircle2,
   Clock3,
@@ -415,23 +416,16 @@ export default function LessonsShow({
       </div>
 
       {/* ── Assessment ──────────────────────────────────────── */}
-      {isVideoLesson && access.allowed && (
-        <AssessmentSection lessonSlug={lesson.slug || ''} lessonTitle={lesson.title} />
-      )}
+      {isVideoLesson && access.allowed && <AssessmentSection lessonSlug={lesson.slug || ''} />}
     </>
   )
 }
 
-function AssessmentSection({
-  lessonSlug,
-  lessonTitle,
-}: {
-  lessonSlug: string
-  lessonTitle: string
-}) {
+function AssessmentSection({ lessonSlug }: { lessonSlug: string }) {
   const [assessment, setAssessment] = React.useState<any>(null)
   const [questions, setQuestions] = React.useState<any[]>([])
   const [result, setResult] = React.useState<any>(null)
+  const [nextLesson, setNextLesson] = React.useState<any>(null)
   const [answers, setAnswers] = React.useState<Record<string, string>>({})
   const [loading, setLoading] = React.useState(false)
   const [submitting, setSubmitting] = React.useState(false)
@@ -446,6 +440,7 @@ function AssessmentSection({
         setAssessment(data.assessment)
         setQuestions(data.questions || [])
         if (data.result) setResult(data.result)
+        if (data.nextLesson) setNextLesson(data.nextLesson)
       }
     } catch {}
     setLoading(false)
@@ -463,20 +458,35 @@ function AssessmentSection({
   const handleSubmit = async () => {
     setSubmitting(true)
     try {
+      const csrfCookie = document.cookie.split('; ').find((row) => row.startsWith('XSRF-TOKEN='))
+      const csrfToken = csrfCookie
+        ? decodeURIComponent(csrfCookie.substring('XSRF-TOKEN='.length))
+        : ''
+
       const res = await fetch(`/lessons/${lessonSlug}/assessment/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': '',
+          'X-XSRF-TOKEN': csrfToken,
           'X-Requested-With': 'XMLHttpRequest',
           'Accept': 'application/json',
         },
         credentials: 'include',
         body: JSON.stringify({ answers }),
       })
+
+      if (!res.ok) {
+        console.error('Assessment submit failed:', res.status)
+        setSubmitting(false)
+        return
+      }
+
       const data = await res.json()
       if (data.result) setResult(data.result)
-    } catch {}
+      if (data.nextLesson) setNextLesson(data.nextLesson)
+    } catch (err) {
+      console.error('Assessment submit error:', err)
+    }
     setSubmitting(false)
   }
 
@@ -518,27 +528,101 @@ function AssessmentSection({
     )
   }
 
-  if (result && !result.details) {
+  if (result) {
+    const passed = result.score >= 3
+    const labels = ['A', 'B', 'C', 'D']
     return (
       <div className="mx-auto mt-16 max-w-2xl px-5">
-        <Card>
+        <Card className={passed ? 'border-green-200' : 'border-warm-200'}>
           <CardHeader className="border-b text-center">
-            <CardTitle>Assessment Completed</CardTitle>
+            <CardTitle>
+              Assessment {result.alreadyCompleted ? 'Already Completed' : 'Completed'}
+            </CardTitle>
           </CardHeader>
-          <CardPanel className="flex flex-col items-center gap-4 py-8 text-center">
-            <div className="flex size-20 items-center justify-center rounded-full bg-primary/10">
-              <Trophy className="size-10 text-primary" />
+          <CardPanel className="space-y-6 py-6">
+            {/* Score */}
+            <div className="flex flex-col items-center gap-2">
+              <div
+                className={`flex size-20 items-center justify-center rounded-full ${
+                  passed ? 'bg-green-100' : 'bg-orange-100'
+                }`}
+              >
+                <Trophy className={`size-10 ${passed ? 'text-green-600' : 'text-orange-600'}`} />
+              </div>
+              <p className="text-3xl font-bold">
+                {result.score}/{result.total}
+              </p>
+              <p className={passed ? 'text-green-600 font-medium' : 'text-orange-600 font-medium'}>
+                {result.score === result.total
+                  ? 'Perfect score! Excellent work!'
+                  : passed
+                    ? 'Good job! You passed.'
+                    : 'Keep reviewing and try again.'}
+              </p>
             </div>
-            <p className="text-3xl font-bold">
-              {result.score}/{result.total}
-            </p>
-            <p className="text-muted-foreground">
-              {result.score === result.total
-                ? 'Perfect score! Excellent work!'
-                : result.score >= 3
-                  ? 'Good job! You passed the assessment.'
-                  : 'Keep reviewing the lesson and try again.'}
-            </p>
+
+            {/* Detailed answers */}
+            {result.details && Array.isArray(result.details) && (
+              <div className="space-y-3">
+                <Separator />
+                <p className="text-sm font-medium">Your Answers</p>
+                {result.details.map((d: any, idx: number) => (
+                  <div
+                    key={idx}
+                    className={`rounded-lg border p-3 ${
+                      d.isCorrect
+                        ? 'border-green-200 bg-green-50/50'
+                        : 'border-red-200 bg-red-50/50'
+                    }`}
+                  >
+                    <p className="text-sm font-medium">
+                      {idx + 1}. {d.question || 'Question'}
+                    </p>
+                    <div className="mt-2 space-y-1 text-sm">
+                      {d.options &&
+                        d.options.map(
+                          (opt: string, oi: number) =>
+                            opt && (
+                              <div
+                                key={oi}
+                                className={`flex items-center gap-2 rounded px-2 py-0.5 ${
+                                  d.correctAnswer === labels[oi]
+                                    ? 'bg-green-100 text-green-800'
+                                    : d.userAnswer === labels[oi] && !d.isCorrect
+                                      ? 'bg-red-100 text-red-800'
+                                      : ''
+                                }`}
+                              >
+                                <span className="font-medium">{labels[oi]}.</span>
+                                <span>{opt}</span>
+                                {d.correctAnswer === labels[oi] && (
+                                  <span className="ml-auto text-xs text-green-600">Correct</span>
+                                )}
+                                {d.userAnswer === labels[oi] && !d.isCorrect && (
+                                  <span className="ml-auto text-xs text-red-600">Your answer</span>
+                                )}
+                              </div>
+                            )
+                        )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Next Lesson button */}
+            <Separator />
+            <div className="flex flex-col items-center gap-3 pt-2">
+              {nextLesson ? (
+                <Button size="lg" render={<Link href={`/lessons/${nextLesson.slug}`} />}>
+                  Next Lesson: {nextLesson.title} <ArrowRight className="ml-2 size-4" />
+                </Button>
+              ) : (
+                <Button size="lg" variant="outline" render={<Link href="/series" />}>
+                  Back to Series <ArrowRight className="ml-2 size-4" />
+                </Button>
+              )}
+            </div>
           </CardPanel>
         </Card>
       </div>

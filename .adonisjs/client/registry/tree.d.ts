@@ -195,6 +195,7 @@ export interface ApiDefinition {
     index: typeof routes['memberEnrollments.index']
   }
   dashboard: typeof routes['dashboard']
+  myProgress: typeof routes['my-progress']
   lessons: {
     index: typeof routes['lessons.index']
     setDefaultPanel: typeof routes['lessons.setDefaultPanel']
@@ -204,6 +205,9 @@ export interface ApiDefinition {
     assessment: typeof routes['lessons.assessment'] & {
       submit: typeof routes['lessons.assessment.submit']
     }
+  }
+  assessments: {
+    history: typeof routes['assessments.history']
   }
   users: {
     watchlist: typeof routes['users.watchlist']

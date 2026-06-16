@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Data } from '@generated/data'
 import { usePage } from '@inertiajs/react'
-import { LayoutDashboard, UsersIcon, SettingsIcon, MessageSquare } from 'lucide-react'
+import { LayoutDashboard, UsersIcon, SettingsIcon, MessageSquare, BarChart3 } from 'lucide-react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { Logo } from '~/components/logo'
 import {
@@ -30,6 +30,12 @@ const navItems = [
     href: urlFor('series.index'),
     icon: UsersIcon,
     isActive: true,
+  },
+  {
+    title: 'My Progress',
+    href: '/my-progress',
+    icon: BarChart3,
+    isActive: false,
   },
   {
     title: 'Forum',

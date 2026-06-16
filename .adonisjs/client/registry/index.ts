@@ -762,6 +762,12 @@ const routes = {
     tokens: [{"old":"/dashboard","type":0,"val":"dashboard","end":""}],
     types: placeholder as Registry['dashboard']['types'],
   },
+  'my-progress': {
+    methods: ["GET","HEAD"],
+    pattern: '/my-progress',
+    tokens: [{"old":"/my-progress","type":0,"val":"my-progress","end":""}],
+    types: placeholder as Registry['my-progress']['types'],
+  },
   'lessons.index': {
     methods: ["GET","HEAD"],
     pattern: '/lessons',
@@ -803,6 +809,12 @@ const routes = {
     pattern: '/lessons/:slug/assessment/submit',
     tokens: [{"old":"/lessons/:slug/assessment/submit","type":0,"val":"lessons","end":""},{"old":"/lessons/:slug/assessment/submit","type":1,"val":"slug","end":""},{"old":"/lessons/:slug/assessment/submit","type":0,"val":"assessment","end":""},{"old":"/lessons/:slug/assessment/submit","type":0,"val":"submit","end":""}],
     types: placeholder as Registry['lessons.assessment.submit']['types'],
+  },
+  'assessments.history': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/assessments/history',
+    tokens: [{"old":"/api/assessments/history","type":0,"val":"api","end":""},{"old":"/api/assessments/history","type":0,"val":"assessments","end":""},{"old":"/api/assessments/history","type":0,"val":"history","end":""}],
+    types: placeholder as Registry['assessments.history']['types'],
   },
   'users.watchlist': {
     methods: ["GET","HEAD"],

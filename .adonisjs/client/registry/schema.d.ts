@@ -1519,6 +1519,18 @@ export interface Registry {
       errorResponse: unknown
     }
   }
+  'my-progress': {
+    methods: ["GET","HEAD"]
+    pattern: '/my-progress'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
   'lessons.index': {
     methods: ["GET","HEAD"]
     pattern: '/lessons'
@@ -1601,6 +1613,18 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/assessments_controller').default['submit']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/assessments_controller').default['submit']>>>
+    }
+  }
+  'assessments.history': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/assessments/history'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/assessments_controller').default['history']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/assessments_controller').default['history']>>>
     }
   }
   'users.watchlist': {
