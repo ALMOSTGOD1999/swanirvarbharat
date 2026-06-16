@@ -201,6 +201,9 @@ export interface ApiDefinition {
     watchlist: typeof routes['lessons.watchlist']
     autoplay: typeof routes['lessons.autoplay']
     show: typeof routes['lessons.show']
+    assessment: typeof routes['lessons.assessment'] & {
+      submit: typeof routes['lessons.assessment.submit']
+    }
   }
   users: {
     watchlist: typeof routes['users.watchlist']

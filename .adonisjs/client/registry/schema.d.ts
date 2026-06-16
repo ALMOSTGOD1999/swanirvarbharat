@@ -1579,6 +1579,30 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/lessons_controller').default['show']>>>
     }
   }
+  'lessons.assessment': {
+    methods: ["GET","HEAD"]
+    pattern: '/lessons/:slug/assessment'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/assessments_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/assessments_controller').default['show']>>>
+    }
+  }
+  'lessons.assessment.submit': {
+    methods: ["POST"]
+    pattern: '/lessons/:slug/assessment/submit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/assessments_controller').default['submit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/assessments_controller').default['submit']>>>
+    }
+  }
   'users.watchlist': {
     methods: ["GET","HEAD"]
     pattern: '/users/watchlist'

@@ -164,6 +164,16 @@ router
   .as('lessons.show')
   .use(middleware.auth())
   .use(middleware.approved())
+router
+  .get('/lessons/:slug/assessment', [controllers.Assessments, 'show'])
+  .as('lessons.assessment')
+  .use(middleware.auth())
+  .use(middleware.approved())
+router
+  .post('/lessons/:slug/assessment/submit', [controllers.Assessments, 'submit'])
+  .as('lessons.assessment.submit')
+  .use(middleware.auth())
+  .use(middleware.approved())
 
 router
   .group(() => {

@@ -792,6 +792,18 @@ const routes = {
     tokens: [{"old":"/lessons/:slug","type":0,"val":"lessons","end":""},{"old":"/lessons/:slug","type":1,"val":"slug","end":""}],
     types: placeholder as Registry['lessons.show']['types'],
   },
+  'lessons.assessment': {
+    methods: ["GET","HEAD"],
+    pattern: '/lessons/:slug/assessment',
+    tokens: [{"old":"/lessons/:slug/assessment","type":0,"val":"lessons","end":""},{"old":"/lessons/:slug/assessment","type":1,"val":"slug","end":""},{"old":"/lessons/:slug/assessment","type":0,"val":"assessment","end":""}],
+    types: placeholder as Registry['lessons.assessment']['types'],
+  },
+  'lessons.assessment.submit': {
+    methods: ["POST"],
+    pattern: '/lessons/:slug/assessment/submit',
+    tokens: [{"old":"/lessons/:slug/assessment/submit","type":0,"val":"lessons","end":""},{"old":"/lessons/:slug/assessment/submit","type":1,"val":"slug","end":""},{"old":"/lessons/:slug/assessment/submit","type":0,"val":"assessment","end":""},{"old":"/lessons/:slug/assessment/submit","type":0,"val":"submit","end":""}],
+    types: placeholder as Registry['lessons.assessment.submit']['types'],
+  },
   'users.watchlist': {
     methods: ["GET","HEAD"],
     pattern: '/users/watchlist',

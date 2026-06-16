@@ -49,6 +49,65 @@ export class AppConfigSchema extends BaseModel {
   declare value: string | null
 }
 
+export class AssessmentQuestionSchema extends BaseModel {
+  static $columns = ['assessmentId', 'correctAnswer', 'createdAt', 'id', 'optionA', 'optionB', 'optionC', 'optionD', 'question', 'sortOrder', 'updatedAt'] as const
+  $columns = AssessmentQuestionSchema.$columns
+  @column()
+  declare assessmentId: string
+  @column()
+  declare correctAnswer: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare optionA: string
+  @column()
+  declare optionB: string
+  @column()
+  declare optionC: string
+  @column()
+  declare optionD: string
+  @column()
+  declare question: string
+  @column()
+  declare sortOrder: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
+export class AssessmentResultSchema extends BaseModel {
+  static $columns = ['answers', 'assessmentId', 'completedAt', 'id', 'score', 'total', 'userId'] as const
+  $columns = AssessmentResultSchema.$columns
+  @column()
+  declare answers: any | null
+  @column()
+  declare assessmentId: string
+  @column.dateTime()
+  declare completedAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare score: number
+  @column()
+  declare total: number
+  @column()
+  declare userId: string
+}
+
+export class AssessmentSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'postId', 'updatedAt'] as const
+  $columns = AssessmentSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare postId: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
 export class AssetPostSchema extends BaseModel {
   static $columns = ['assetId', 'createdAt', 'id', 'postId', 'sortOrder', 'updatedAt'] as const
   $columns = AssetPostSchema.$columns

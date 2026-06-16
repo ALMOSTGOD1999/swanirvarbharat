@@ -1,7 +1,16 @@
 import { Link } from '@adonisjs/inertia/react'
 import type { Data } from '@generated/data'
 import { router } from '@inertiajs/react'
-import { ArrowLeft, BookOpen, CheckCircle2, Clock3, Lock, PlayCircle, Star } from 'lucide-react'
+import {
+  ArrowLeft,
+  BookOpen,
+  CheckCircle2,
+  Clock3,
+  Lock,
+  PlayCircle,
+  Star,
+  Trophy,
+} from 'lucide-react'
 import React from 'react'
 
 import { urlFor } from '~/client'
@@ -404,7 +413,198 @@ export default function LessonsShow({
           </aside>
         </div>
       </div>
+
+      {/* ── Assessment ──────────────────────────────────────── */}
+      {isVideoLesson && access.allowed && (
+        <AssessmentSection lessonSlug={lesson.slug || ''} lessonTitle={lesson.title} />
+      )}
     </>
+  )
+}
+
+function AssessmentSection({
+  lessonSlug,
+  lessonTitle,
+}: {
+  lessonSlug: string
+  lessonTitle: string
+}) {
+  const [assessment, setAssessment] = React.useState<any>(null)
+  const [questions, setQuestions] = React.useState<any[]>([])
+  const [result, setResult] = React.useState<any>(null)
+  const [answers, setAnswers] = React.useState<Record<string, string>>({})
+  const [loading, setLoading] = React.useState(false)
+  const [submitting, setSubmitting] = React.useState(false)
+  const [started, setStarted] = React.useState(false)
+
+  const fetchAssessment = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch(`/lessons/${lessonSlug}/assessment`)
+      const data = await res.json()
+      if (data.assessment) {
+        setAssessment(data.assessment)
+        setQuestions(data.questions || [])
+        if (data.result) setResult(data.result)
+      }
+    } catch {}
+    setLoading(false)
+  }
+
+  const handleStart = () => {
+    fetchAssessment()
+    setStarted(true)
+  }
+
+  const handleAnswer = (questionId: string, answer: string) => {
+    setAnswers((prev) => ({ ...prev, [questionId]: answer }))
+  }
+
+  const handleSubmit = async () => {
+    setSubmitting(true)
+    try {
+      const res = await fetch(`/lessons/${lessonSlug}/assessment/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': '',
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ answers }),
+      })
+      const data = await res.json()
+      if (data.result) setResult(data.result)
+    } catch {}
+    setSubmitting(false)
+  }
+
+  if (!started) {
+    return (
+      <div className="mx-auto mt-16 max-w-2xl px-5">
+        <Card className="border-primary/20">
+          <CardHeader className="border-b text-center">
+            <CardTitle>Lesson Assessment</CardTitle>
+            <CardDescription>
+              Test your understanding of this lesson with 5 quick questions.
+            </CardDescription>
+          </CardHeader>
+          <CardPanel className="flex flex-col items-center gap-4 py-8 text-center">
+            <CheckCircle2 className="size-12 text-primary" />
+            <p className="text-muted-foreground">Complete the assessment to track your progress.</p>
+            <Button size="lg" onClick={handleStart}>
+              Start Assessment
+            </Button>
+          </CardPanel>
+        </Card>
+      </div>
+    )
+  }
+
+  if (loading) {
+    return (
+      <div className="mx-auto mt-16 max-w-2xl px-5 text-center">
+        <p className="text-muted-foreground">Loading assessment...</p>
+      </div>
+    )
+  }
+
+  if (!assessment) {
+    return (
+      <div className="mx-auto mt-16 max-w-2xl px-5 text-center">
+        <p className="text-muted-foreground">No assessment available for this lesson yet.</p>
+      </div>
+    )
+  }
+
+  if (result && !result.details) {
+    return (
+      <div className="mx-auto mt-16 max-w-2xl px-5">
+        <Card>
+          <CardHeader className="border-b text-center">
+            <CardTitle>Assessment Completed</CardTitle>
+          </CardHeader>
+          <CardPanel className="flex flex-col items-center gap-4 py-8 text-center">
+            <div className="flex size-20 items-center justify-center rounded-full bg-primary/10">
+              <Trophy className="size-10 text-primary" />
+            </div>
+            <p className="text-3xl font-bold">
+              {result.score}/{result.total}
+            </p>
+            <p className="text-muted-foreground">
+              {result.score === result.total
+                ? 'Perfect score! Excellent work!'
+                : result.score >= 3
+                  ? 'Good job! You passed the assessment.'
+                  : 'Keep reviewing the lesson and try again.'}
+            </p>
+          </CardPanel>
+        </Card>
+      </div>
+    )
+  }
+
+  const allAnswered = questions.every((q: any) => answers[q.id])
+
+  return (
+    <div className="mx-auto mt-16 max-w-2xl px-5">
+      <Card className="border-primary/20">
+        <CardHeader className="border-b">
+          <CardTitle>Assessment</CardTitle>
+          <CardDescription>Answer all 5 questions to complete this lesson.</CardDescription>
+        </CardHeader>
+        <CardPanel className="space-y-6">
+          {questions.map((q: any, idx: number) => (
+            <div key={q.id} className="space-y-3 rounded-lg border p-4">
+              <p className="font-medium text-sm">
+                {idx + 1}. {q.question}
+              </p>
+              <div className="space-y-2">
+                {[
+                  { label: 'A', value: q.optionA },
+                  { label: 'B', value: q.optionB },
+                  { label: 'C', value: q.optionC },
+                  { label: 'D', value: q.optionD },
+                ]
+                  .filter((o) => o.value)
+                  .map((opt) => (
+                    <label
+                      key={opt.label}
+                      className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 text-sm transition-colors ${
+                        answers[q.id] === opt.label
+                          ? 'border-primary bg-primary/5'
+                          : 'hover:bg-muted/50'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name={`q-${q.id}`}
+                        value={opt.label}
+                        checked={answers[q.id] === opt.label}
+                        onChange={() => handleAnswer(q.id, opt.label)}
+                        className="mt-0.5"
+                      />
+                      <span>
+                        <span className="font-medium">{opt.label}.</span> {opt.value}
+                      </span>
+                    </label>
+                  ))}
+              </div>
+            </div>
+          ))}
+
+          <Button
+            className="w-full"
+            size="lg"
+            disabled={!allAnswered || submitting}
+            onClick={handleSubmit}
+          >
+            {submitting ? 'Submitting...' : 'Submit Answers'}
+          </Button>
+        </CardPanel>
+      </Card>
+    </div>
   )
 }
 
