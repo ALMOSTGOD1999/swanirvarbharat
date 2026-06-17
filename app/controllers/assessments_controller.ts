@@ -21,8 +21,6 @@ export default class AssessmentsController {
       userId: user.id,
       assessmentId: assessment.id,
     })
-
-    // Find next lesson in the same series
     const nextLesson = await this.getNextLesson(post.id)
 
     return response.json({
@@ -47,7 +45,7 @@ export default class AssessmentsController {
     })
   }
 
-  async submit({ params, request, response, auth }: HttpContext) {
+  async submit({ params, request, response, auth, session }: HttpContext) {
     const user = auth.getUserOrFail()
     const post = await Post.findByOrFail('slug', params.slug)
     const assessment = await Assessment.findByOrFail('postId', post.id)
@@ -55,11 +53,13 @@ export default class AssessmentsController {
     const existing = await AssessmentResult.findBy({ userId: user.id, assessmentId: assessment.id })
     if (existing) {
       const nextLesson = await this.getNextLesson(post.id)
-      return response.json({
-        result: { score: existing.score, total: existing.total, details: existing.answers },
-        alreadyCompleted: true,
-        nextLesson,
+      session.flash('assessmentResult', {
+        score: existing.score,
+        total: existing.total,
+        details: existing.answers,
       })
+      if (nextLesson) session.flash('assessmentNextLesson', nextLesson)
+      return response.redirect().back()
     }
 
     const questions = await AssessmentQuestion.query()
@@ -93,7 +93,10 @@ export default class AssessmentsController {
 
     const nextLesson = await this.getNextLesson(post.id)
 
-    return response.json({ result: { score, total: questions.length, details }, nextLesson })
+    session.flash('assessmentResult', { score, total: questions.length, details })
+    if (nextLesson) session.flash('assessmentNextLesson', nextLesson)
+
+    return response.redirect().back()
   }
 
   async history({ auth, response }: HttpContext) {
@@ -117,7 +120,6 @@ export default class AssessmentsController {
 
   private async getNextLesson(currentPostId: string) {
     const row = await db.from('series_posts').where('post_id', currentPostId).first()
-
     if (!row) return null
 
     const next = await db

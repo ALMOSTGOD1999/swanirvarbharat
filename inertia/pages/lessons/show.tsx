@@ -1,6 +1,6 @@
 import { Link } from '@adonisjs/inertia/react'
 import type { Data } from '@generated/data'
-import { router } from '@inertiajs/react'
+import { router, usePage } from '@inertiajs/react'
 import {
   ArrowLeft,
   ArrowRight,
@@ -431,6 +431,17 @@ function AssessmentSection({ lessonSlug }: { lessonSlug: string }) {
   const [submitting, setSubmitting] = React.useState(false)
   const [started, setStarted] = React.useState(false)
 
+  // Read assessment result from flash data (after Inertia redirect)
+  const { flash } = usePage<any>().props
+  React.useEffect(() => {
+    if (flash?.assessmentResult) {
+      setResult(flash.assessmentResult)
+    }
+    if (flash?.assessmentNextLesson) {
+      setNextLesson(flash.assessmentNextLesson)
+    }
+  }, [flash?.assessmentResult, flash?.assessmentNextLesson])
+
   const fetchAssessment = async () => {
     setLoading(true)
     try {
@@ -457,37 +468,15 @@ function AssessmentSection({ lessonSlug }: { lessonSlug: string }) {
 
   const handleSubmit = async () => {
     setSubmitting(true)
-    try {
-      const csrfCookie = document.cookie.split('; ').find((row) => row.startsWith('XSRF-TOKEN='))
-      const csrfToken = csrfCookie
-        ? decodeURIComponent(csrfCookie.substring('XSRF-TOKEN='.length))
-        : ''
-
-      const res = await fetch(`/lessons/${lessonSlug}/assessment/submit`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': csrfToken,
-          'X-Requested-With': 'XMLHttpRequest',
-          'Accept': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ answers }),
-      })
-
-      if (!res.ok) {
-        console.error('Assessment submit failed:', res.status)
-        setSubmitting(false)
-        return
+    // Use Inertia router.post() which handles CSRF automatically
+    router.post(
+      `/lessons/${lessonSlug}/assessment/submit`,
+      { answers },
+      {
+        onSuccess: () => setSubmitting(false),
+        onError: () => setSubmitting(false),
       }
-
-      const data = await res.json()
-      if (data.result) setResult(data.result)
-      if (data.nextLesson) setNextLesson(data.nextLesson)
-    } catch (err) {
-      console.error('Assessment submit error:', err)
-    }
-    setSubmitting(false)
+    )
   }
 
   if (!started) {
