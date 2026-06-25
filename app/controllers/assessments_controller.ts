@@ -48,7 +48,11 @@ export default class AssessmentsController {
   async submit({ params, request, response, auth, session }: HttpContext) {
     const user = auth.getUserOrFail()
     const post = await Post.findByOrFail('slug', params.slug)
-    const assessment = await Assessment.findByOrFail('postId', post.id)
+    const assessment = await Assessment.findBy('postId', post.id)
+    if (!assessment) {
+      session.flash('error', 'Assessment not available for this lesson.')
+      return response.redirect().back()
+    }
 
     const existing = await AssessmentResult.findBy({ userId: user.id, assessmentId: assessment.id })
     if (existing) {
