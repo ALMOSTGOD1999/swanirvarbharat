@@ -45,62 +45,62 @@ export default class AssessmentsController {
     })
   }
 
-  async submit({ params, request, response, auth, session }: HttpContext) {
-    const user = auth.getUserOrFail()
-    const post = await Post.findByOrFail('slug', params.slug)
-    const assessment = await Assessment.findBy('postId', post.id)
-    if (!assessment) {
-      session.flash('error', 'Assessment not available for this lesson.')
-      return response.redirect().back()
-    }
-
-    const existing = await AssessmentResult.findBy({ userId: user.id, assessmentId: assessment.id })
-    if (existing) {
-      const nextLesson = await this.getNextLesson(post.id)
-      session.flash('assessmentResult', {
-        score: existing.score,
-        total: existing.total,
-        details: existing.answers,
-      })
-      if (nextLesson) session.flash('assessmentNextLesson', nextLesson)
-      return response.redirect().back()
-    }
-
-    const questions = await AssessmentQuestion.query()
-      .where('assessmentId', assessment.id)
-      .orderBy('sortOrder', 'asc')
-
-    const answers = request.input('answers', {})
-    let score = 0
-    const details = questions.map((q) => {
-      const userAnswer = answers[q.id] || ''
-      const isCorrect = userAnswer.toUpperCase() === q.correctAnswer.toUpperCase()
-      if (isCorrect) score++
-      return {
-        questionId: q.id,
-        question: q.question,
-        options: [q.optionA, q.optionB, q.optionC, q.optionD],
-        userAnswer,
-        correctAnswer: q.correctAnswer,
-        isCorrect,
+  async submit({ params, request, response, auth }: HttpContext) {
+    try {
+      const user = auth.getUserOrFail()
+      const post = await Post.findByOrFail('slug', params.slug)
+      const assessment = await Assessment.findBy('postId', post.id)
+      if (!assessment) {
+        return response.status(404).json({ error: 'Assessment not found' })
       }
-    })
 
-    await AssessmentResult.create({
-      userId: user.id,
-      assessmentId: assessment.id,
-      score,
-      total: questions.length,
-      answers: details,
-      completedAt: DateTime.now(),
-    })
+      const existing = await AssessmentResult.findBy({
+        userId: user.id,
+        assessmentId: assessment.id,
+      })
+      if (existing) {
+        const nextLesson = await this.getNextLesson(post.id)
+        return response.json({
+          result: { score: existing.score, total: existing.total, details: existing.answers },
+          nextLesson,
+        })
+      }
 
-    const nextLesson = await this.getNextLesson(post.id)
+      const questions = await AssessmentQuestion.query()
+        .where('assessmentId', assessment.id)
+        .orderBy('sortOrder', 'asc')
 
-    session.flash('assessmentResult', { score, total: questions.length, details })
-    if (nextLesson) session.flash('assessmentNextLesson', nextLesson)
+      const answers = request.input('answers', {})
+      let score = 0
+      const details = questions.map((q) => {
+        const userAnswer = answers[q.id] || ''
+        const isCorrect = userAnswer.toUpperCase() === q.correctAnswer.toUpperCase()
+        if (isCorrect) score++
+        return {
+          questionId: q.id,
+          question: q.question,
+          options: [q.optionA, q.optionB, q.optionC, q.optionD],
+          userAnswer,
+          correctAnswer: q.correctAnswer,
+          isCorrect,
+        }
+      })
 
-    return response.redirect().back()
+      await AssessmentResult.create({
+        userId: user.id,
+        assessmentId: assessment.id,
+        score,
+        total: questions.length,
+        answers: details,
+        completedAt: DateTime.now(),
+      })
+
+      const nextLesson = await this.getNextLesson(post.id)
+
+      return response.json({ result: { score, total: questions.length, details }, nextLesson })
+    } catch (error) {
+      return response.status(500).json({ error: (error as Error).message || 'Unknown error' })
+    }
   }
 
   async history({ auth, response }: HttpContext) {

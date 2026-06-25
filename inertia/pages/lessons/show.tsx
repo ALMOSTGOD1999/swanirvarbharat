@@ -468,15 +468,36 @@ function AssessmentSection({ lessonSlug }: { lessonSlug: string }) {
 
   const handleSubmit = async () => {
     setSubmitting(true)
-    // Use Inertia router.post() which handles CSRF automatically
-    router.post(
-      `/lessons/${lessonSlug}/assessment/submit`,
-      { answers },
-      {
-        onSuccess: () => setSubmitting(false),
-        onError: () => setSubmitting(false),
+    try {
+      const csrfCookie = document.cookie.split('; ').find((row) => row.startsWith('XSRF-TOKEN='))
+      const csrfToken = csrfCookie ? csrfCookie.substring('XSRF-TOKEN='.length) : ''
+
+      const res = await fetch(`/lessons/${lessonSlug}/assessment/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-XSRF-TOKEN': csrfToken,
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ answers }),
+      })
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({ error: 'Unknown error' }))
+        console.error('Assessment submit failed:', errData.error || res.status)
+        setSubmitting(false)
+        return
       }
-    )
+
+      const data = await res.json()
+      if (data.result) setResult(data.result)
+      if (data.nextLesson) setNextLesson(data.nextLesson)
+    } catch (err) {
+      console.error('Assessment submit error:', err)
+    }
+    setSubmitting(false)
   }
 
   if (!started) {
