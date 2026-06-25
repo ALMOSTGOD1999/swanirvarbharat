@@ -91,7 +91,7 @@ export default class AssessmentsController {
         assessmentId: assessment.id,
         score,
         total: questions.length,
-        answers: details,
+        answers: JSON.stringify(details),
         completedAt: DateTime.now(),
       })
 

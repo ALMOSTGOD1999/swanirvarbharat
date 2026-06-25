@@ -22,7 +22,10 @@ export default class AssessmentResult extends AppSchema {
   @column()
   declare total: number
 
-  @column()
+  @column({
+    prepare: (value: any) => (typeof value === 'object' ? JSON.stringify(value) : value),
+    consume: (value: any) => (typeof value === 'string' ? JSON.parse(value) : value),
+  })
   declare answers: any | null
 
   @column.dateTime({ autoCreate: false })
