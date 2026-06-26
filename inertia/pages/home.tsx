@@ -4,6 +4,7 @@ import { motion, type Variants } from 'motion/react'
 import {
   ArrowRight,
   BookOpen,
+  Check,
   Clock,
   Code,
   Flame,
@@ -592,6 +593,185 @@ export default function Home({
           </div>
         </section>
 
+        {/* ── How to Get Started ─────────────────────────── */}
+        <section className="border-t bg-muted/30 py-12 md:py-16">
+          <div className="container mx-auto px-5">
+            <ScrollReveal>
+              <h2 className="mb-10 text-center text-3xl font-bold tracking-tight sm:text-4xl">
+                How to Get Started & Free Job Placement
+              </h2>
+            </ScrollReveal>
+
+            <div className="grid gap-8 md:grid-cols-3">
+              {/* English */}
+              <ScrollReveal>
+                <h3 className="mb-4 text-lg font-semibold text-primary">English</h3>
+                <ol className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      1
+                    </span>
+                    <div>
+                      <strong>Sign Up</strong> — Create your account using your email and a
+                      password. Verify your email address through the link we send you.
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      2
+                    </span>
+                    <div>
+                      <strong>Complete Profile</strong> — Fill in your personal details, upload your
+                      educational documents (10th, 12th certificates, etc.), and record a short
+                      introduction video.
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      3
+                    </span>
+                    <div>
+                      <strong>Submit for Review</strong> — Once your profile is complete, submit
+                      your application for admin review. An admin will verify your documents and
+                      KYC.
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      4
+                    </span>
+                    <div>
+                      <strong>Get Approved</strong> — After approval, you get full access to all
+                      lessons, series, and assessments.
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-green-500/15 text-green-600">
+                      <Check className="size-3.5" />
+                    </span>
+                    <div>
+                      <strong>✅ Free Job Placement in Bengal</strong> — Approved candidates receive
+                      free job placement assistance in leading hotels across Bengal. Our placement
+                      partners include Taj, Marriott, Hyatt, Oberoi, and more.
+                    </div>
+                  </li>
+                </ol>
+              </ScrollReveal>
+
+              {/* Hindi */}
+              <ScrollReveal>
+                <h3 className="mb-4 text-lg font-semibold text-secondary">हिन्दी</h3>
+                <ol className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      १
+                    </span>
+                    <div>
+                      <strong>साइन अप करें</strong> — अपने ईमेल और पासवर्ड से खाता बनाएं। हमारे
+                      द्वारा भेजे गए लिंक से अपना ईमेल सत्यापित करें।
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      २
+                    </span>
+                    <div>
+                      <strong>प्रोफाइल पूरा करें</strong> — अपनी व्यक्तिगत जानकारी भरें, शैक्षिक
+                      दस्तावेज (10वीं, 12वीं प्रमाणपत्र आदि) अपलोड करें, और एक छोटा परिचय वीडियो
+                      रिकॉर्ड करें।
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      ३
+                    </span>
+                    <div>
+                      <strong>समीक्षा के लिए जमा करें</strong> — प्रोफाइल पूरा होने पर, एडमिन
+                      समीक्षा के लिए अपना आवेदन जमा करें। एडमिन आपके दस्तावेजों और KYC को सत्यापित
+                      करेगा।
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      ४
+                    </span>
+                    <div>
+                      <strong>स्वीकृति प्राप्त करें</strong> — स्वीकृति के बाद, आपको सभी पाठों,
+                      श्रृंखलाओं और मूल्यांकनों तक पूर्ण पहुंच मिल जाती है।
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-green-500/15 text-green-600">
+                      <Check className="size-3.5" />
+                    </span>
+                    <div>
+                      <strong>✅ बंगाल में मुफ्त नौकरी प्लेसमेंट</strong> — स्वीकृत उम्मीदवारों को
+                      बंगाल के प्रमुख होटलों में मुफ्त नौकरी प्लेसमेंट सहायता प्रदान की जाती है।
+                      हमारे प्लेसमेंट पार्टनर्स में ताज, मैरियट, हयात, ओबेरॉय और अन्य शामिल हैं।
+                    </div>
+                  </li>
+                </ol>
+              </ScrollReveal>
+
+              {/* Bengali */}
+              <ScrollReveal>
+                <h3 className="mb-4 text-lg font-semibold text-warm-600">বাংলা</h3>
+                <ol className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      ১
+                    </span>
+                    <div>
+                      <strong>সাইন আপ করুন</strong> — আপনার ইমেল এবং পাসওয়ার্ড দিয়ে একটি
+                      অ্যাকাউন্ট তৈরি করুন। আমরা পাঠানো লিঙ্কের মাধ্যমে আপনার ইমেল যাচাই করুন।
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      ২
+                    </span>
+                    <div>
+                      <strong>প্রোফাইল সম্পূর্ণ করুন</strong> — আপনার ব্যক্তিগত বিবরণ পূরণ করুন,
+                      আপনার শিক্ষাগত নথি (দশম, দ্বাদশ সার্টিফিকেট ইত্যাদি) আপলোড করুন এবং একটি
+                      সংক্ষিপ্ত পরিচয় ভিডিও রেকর্ড করুন।
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      ৩
+                    </span>
+                    <div>
+                      <strong>পর্যালোচনার জন্য জমা দিন</strong> — আপনার প্রোফাইল সম্পূর্ণ হলে,
+                      অ্যাডমিন পর্যালোচনার জন্য আপনার আবেদন জমা দিন। অ্যাডমিন আপনার নথি এবং KYC
+                      যাচাই করবে।
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      ৪
+                    </span>
+                    <div>
+                      <strong>অনুমোদন পান</strong> — অনুমোদনের পরে, আপনি সমস্ত পাঠ, সিরিজ এবং
+                      মূল্যায়নে সম্পূর্ণ অ্যাক্সেস পাবেন।
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-green-500/15 text-green-600">
+                      <Check className="size-3.5" />
+                    </span>
+                    <div>
+                      <strong>✅ বাংলায় বিনামূল্যে চাকরি প্লেসমেন্ট</strong> — অনুমোদিত প্রার্থীরা
+                      বাংলার শীর্ষ হোটেলগুলিতে বিনামূল্যে চাকরি প্লেসমেন্ট সহায়তা পান। আমাদের
+                      প্লেসমেন্ট অংশীদারদের মধ্যে তাজ, ম্যারিয়ট, হায়াত, ওবেরয় এবং আরও অনেকেই
+                      রয়েছেন।
+                    </div>
+                  </li>
+                </ol>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
         {/* ── Featured Series ──────────────────────────────────── */}
         {featuredSeries.length > 0 && (
           <section className="py-16 md:py-20">
@@ -771,7 +951,7 @@ export default function Home({
           </section>
         )}
 
-        {/* ── CTA ──────────────────────────────────────────────── */}
+        {/* ── CTA ──────────────────────────────────────────── */}
         <section className="relative overflow-hidden py-16 md:py-20">
           <div className="absolute inset-0 bg-linear-to-r from-primary/10 via-primary/5 to-primary/10" />
           <div className="absolute left-0 top-0 size-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10" />
