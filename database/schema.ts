@@ -1244,7 +1244,7 @@ export class TopicSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['avatar', 'createdAt', 'defaultLessonPanel', 'email', 'emailVerifiedAt', 'googleEmail', 'googleId', 'id', 'isEnabledAutoplayNext', 'isEnabledMentions', 'isEnabledMiniPlayer', 'isEnabledProfile', 'isEnabledTranscript', 'password', 'roleId', 'theme', 'updatedAt', 'username'] as const
+  static $columns = ['avatar', 'createdAt', 'defaultLessonPanel', 'email', 'emailVerifiedAt', 'googleEmail', 'googleId', 'id', 'isEnabledAutoplayNext', 'isEnabledMentions', 'isEnabledMiniPlayer', 'isEnabledProfile', 'isEnabledTranscript', 'lastLoginAt', 'password', 'roleId', 'theme', 'updatedAt', 'username'] as const
   $columns = UserSchema.$columns
   @column()
   declare avatar: any | null
@@ -1272,6 +1272,8 @@ export class UserSchema extends BaseModel {
   declare isEnabledProfile: boolean
   @column()
   declare isEnabledTranscript: boolean
+  @column.dateTime()
+  declare lastLoginAt: DateTime | null
   @column({ serializeAs: null })
   declare password: string
   @column()

@@ -21,9 +21,10 @@ export default class NewAccountController {
     const { request, response, session } = ctx
     const payload = await request.validateUsing(signupValidator)
 
-    // Check if email is already taken by a verified user
+    // Block re-signup only for accounts that have actually signed in before.
+    // Emails that were registered but never signed in (verified or not) can re-register.
     const existingEmailUser = await User.findBy('email', payload.email)
-    if (existingEmailUser && existingEmailUser.emailVerifiedAt) {
+    if (existingEmailUser && existingEmailUser.lastLoginAt) {
       session.flash('error', 'This email is already registered. Please sign in instead.')
       return response.redirect().toRoute('session.create')
     }
@@ -38,10 +39,13 @@ export default class NewAccountController {
     let user: User
 
     if (existingEmailUser) {
-      // Update the existing unverified user
+      // Re-register an account that never signed in: reset credentials and email
+      // verification, then start fresh with a new profile. The verification email
+      // is sent below as usual.
       user = existingEmailUser
       user.username = payload.username
       user.password = payload.password
+      user.emailVerifiedAt = null
       await user.save()
 
       // Delete old profile and create a new one

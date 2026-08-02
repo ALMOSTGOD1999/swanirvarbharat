@@ -1,6 +1,7 @@
 import { errors } from '@adonisjs/auth'
 
 import type { HttpContext } from '@adonisjs/core/http'
+import { DateTime } from 'luxon'
 
 import User from '#models/user'
 import CandidateApplication from '#models/candidate_application'
@@ -36,6 +37,12 @@ export default class SessionController {
 
     await auth.use('web').login(user)
     await AuthAttempt.clear(uid)
+
+    // Record the last successful sign-in so the signup flow can tell
+    // accounts that have been used from those that have not.
+    user.lastLoginAt = DateTime.now()
+    await user.save()
+
     await OnSignInSucceeded.run(ctx, user)
 
     // Redirect admin users to the admin panel
