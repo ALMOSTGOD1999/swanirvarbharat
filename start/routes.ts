@@ -16,7 +16,10 @@ import { middleware } from '#start/kernel'
 
 router.get('/', [controllers.Home, 'index']).as('home')
 
-router.where('slug', router.matchers.slug())
+// Allow shortId slugs produced by @adonisjs/lucid-slugify nanoid (alphabet
+// A-Za-z0-9_-), which the default slug matcher rejects when a slug ends
+// with `_` or `-`. dbIncrement slugs are a subset of this character set.
+router.where('slug', /^[A-Za-z0-9_-]+$/)
 
 if (app.inDev) {
   router.get('/exception/:status', (ctx) => {
