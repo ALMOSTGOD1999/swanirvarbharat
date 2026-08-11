@@ -150,8 +150,9 @@ function DocumentsStep({ app, onNext, onPrev }: { app: any; onNext: () => void; 
     router.post('/onboarding/documents/remove', { field })
   }
 
-  const uploadedCount = docs.filter((d) => d.value).length
   const requiredCount = docs.filter((d) => d.required).length
+  const requiredUploadedCount = docs.filter((d) => d.required && d.value).length
+  const allRequiredUploaded = requiredUploadedCount === requiredCount
 
   return (
     <div className="space-y-4">
@@ -175,8 +176,8 @@ function DocumentsStep({ app, onNext, onPrev }: { app: any; onNext: () => void; 
       ))}
       <div className="flex justify-between pt-4">
         <Button type="button" variant="outline" onClick={onPrev}>Back</Button>
-        <Button type="button" onClick={onNext} disabled={uploadedCount < requiredCount}>
-          {uploadedCount < requiredCount ? `Upload ${requiredCount} required docs first` : 'Next'}
+        <Button type="button" onClick={onNext} disabled={!allRequiredUploaded}>
+          {!allRequiredUploaded ? 'Upload all required (starred) docs first' : 'Next'}
         </Button>
       </div>
     </div>

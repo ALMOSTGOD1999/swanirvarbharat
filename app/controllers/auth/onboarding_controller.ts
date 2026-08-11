@@ -24,15 +24,13 @@ export default class OnboardingController {
     if (application) {
       if (application.fullName) currentStep = 2
 
-      // Step 2 (Documents): require at least 3 documents before advancing
-      const docsCount = [
+      // Step 2 (Documents): require all required (starred) documents before advancing
+      const requiredDocs = [
         application.certificate10th,
         application.certificate12th,
-        application.certificateGraduation,
-        application.certificatePostGraduation,
         application.passportPhoto,
       ].filter(Boolean).length
-      if (docsCount >= 3) currentStep = 3
+      if (requiredDocs === 3) currentStep = 3
 
       if (application.introductionVideo) currentStep = 4
       if (application.kycDocument) currentStep = 5
