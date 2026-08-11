@@ -22,6 +22,7 @@ import { Card, CardDescription, CardHeader, CardPanel, CardTitle } from '~/compo
 import { WebsiteJsonLd } from '~/components/json_ld'
 import DefaultLayout from '~/layouts/default'
 import ScrollReveal from '~/components/scroll_reveal'
+import WelcomeAnimation from '~/components/welcome_animation'
 import { SEOHead } from '~/components/seo_head'
 import { cn } from '~/lib/utils'
 import type { InertiaProps } from '~/types'
@@ -120,6 +121,7 @@ export default function Home({
         type="website"
       />
       <WebsiteJsonLd />
+      <WelcomeAnimation />
 
       <div className="min-h-screen">
         {/* ── Hero ─────────────────────────────────────────────── */}
