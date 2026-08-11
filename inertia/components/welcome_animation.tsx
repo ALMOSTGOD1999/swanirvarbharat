@@ -6,9 +6,9 @@ import { Volume2 } from 'lucide-react'
 // Constants
 // ---------------------------------------------------------------------------
 
-const SAFETY_TIMEOUT_MS = 5900
+const SAFETY_TIMEOUT_MS = 6400
 
-// Indian flag palette
+// Indian tricolor palette (saffron / white / green) used thematically — not as a flag
 const SAFFRON = '#FF9933'
 const WHITE = '#FFFFFF'
 const GREEN = '#138808'
@@ -90,8 +90,8 @@ function scheduleJingle(ctx: AudioContext) {
   const master = ctx.createGain()
   master.gain.setValueAtTime(0.0001, t0)
   master.gain.exponentialRampToValueAtTime(0.8, t0 + 0.2)
-  master.gain.setValueAtTime(0.8, t0 + 5.0)
-  master.gain.linearRampToValueAtTime(0.0001, t0 + 6.4)
+  master.gain.setValueAtTime(0.8, t0 + 5.5)
+  master.gain.linearRampToValueAtTime(0.0001, t0 + 6.9)
   master.connect(ctx.destination)
 
   const pluck = (
@@ -223,14 +223,14 @@ export default function WelcomeAnimation() {
   return (
     <motion.div
       role="img"
-      aria-label="Welcome to Swanirvarbharat. A student studies under the Indian flag, then climbs a staircase to success."
+      aria-label="Welcome to Swanirvarbharat. The Lion Capital of Ashoka emblem presides as a student studies, then climbs a staircase to success."
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
       style={{
         background: 'radial-gradient(120% 120% at 50% 0%, #0d1b3e 0%, #060b26 70%)',
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: [0, 1, 1, 0] }}
-      transition={{ duration: 5.5, times: [0, 0.07, 0.94, 1], ease: 'easeInOut' }}
+      transition={{ duration: 6.0, times: [0, 0.07, 0.94, 1], ease: 'easeInOut' }}
       onAnimationComplete={() => setPhase('done')}
       onPointerDown={() => {
         if (!soundOnRef.current) startJingle()
@@ -251,7 +251,7 @@ export default function WelcomeAnimation() {
         </defs>
 
         <BackgroundStars />
-        <FlagScene />
+        <EmblemScene />
         <TitleGroup />
         <StudyScene />
         <ClimbScene />
@@ -298,69 +298,146 @@ function BackgroundStars() {
   )
 }
 
-function FlagScene() {
+// Lion Capital of Ashoka (the national emblem / "three lions"),
+// rendered in the tricolor palette: saffron lions on top, white/navy
+// abacus in the middle bearing the Dharma Chakra, green lotus base below.
+function EmblemScene() {
+  // Six scalloped mane bumps around each lion head
+  const MANE_BUMPS = [0, 60, 120, 180, 240, 300]
+  // Three visible lions of the capital (center one is primary / largest)
+  const LIONS = [
+    { cx: 395, s: 0.82 },
+    { cx: 450, s: 1 },
+    { cx: 505, s: 0.82 },
+  ]
+
   return (
     <motion.g
       initial={{ opacity: 0, y: -40 }}
-      animate={{ opacity: 1, y: 0, rotate: [0, -0.7, 0.7, 0] }}
+      animate={{ opacity: 1, y: 0, rotate: [0, -0.3, 0.3, 0] }}
       transition={{
         opacity: { duration: 0.6, delay: 0.25 },
         y: { duration: 0.6, delay: 0.25, ease: 'easeOut' },
-        rotate: { duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1.2 },
+        rotate: { duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.2 },
       }}
       style={{ transformBox: 'fill-box', transformOrigin: '50% 40%' }}
     >
-      {/* Pole */}
-      <rect x="118" y="22" width="9" height="158" rx="4" fill="#C9D4E6" />
-      <circle cx="122.5" cy="20" r="7" fill={GOLD} />
+      {/* --- Three lions (front-facing busts) atop the abacus --- */}
+      <motion.g
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.32, duration: 0.45, ease: 'backOut' }}
+        style={svgOrigin}
+      >
+        {LIONS.map((lion, i) => (
+          <g key={i} transform={`translate(${lion.cx} 72) scale(${lion.s})`}>
+            {/* Mane scallop */}
+            {MANE_BUMPS.map((deg) => {
+              const r = 20
+              return (
+                <circle
+                  key={deg}
+                  cx={r * Math.cos((deg * Math.PI) / 180)}
+                  cy={r * Math.sin((deg * Math.PI) / 180)}
+                  r="5"
+                  fill={SAFFRON}
+                />
+              )
+            })}
+            {/* Mane disc */}
+            <circle r="18" fill={SAFFRON} stroke={NAVY} strokeWidth="2" />
+            {/* Face */}
+            <circle r="11" fill="#FFB347" />
+            {/* Ears */}
+            <path d="M -10 -16 L -15 -21 L -5 -19 Z" fill={SAFFRON} />
+            <path d="M 10 -16 L 15 -21 L 5 -19 Z" fill={SAFFRON} />
+            {/* Eyes */}
+            <circle cx="-4.5" cy="-2" r="1.6" fill={NAVY} />
+            <circle cx="4.5" cy="-2" r="1.6" fill={NAVY} />
+            {/* Shoulders / upper body resting on the abacus */}
+            <path
+              d="M -17 16 Q 0 6 17 16 L 17 34 L -17 34 Z"
+              fill={SAFFRON}
+              stroke={NAVY}
+              strokeWidth="1.5"
+            />
+          </g>
+        ))}
+      </motion.g>
 
-      {/* Tricolor bands */}
-      {[
-        { y: 38, fill: SAFFRON, delay: 0.32 },
-        { y: 84, fill: WHITE, delay: 0.44 },
-        { y: 130, fill: GREEN, delay: 0.56 },
-      ].map((band, i) => (
-        <motion.rect
-          key={i}
-          x="130"
-          y={band.y}
-          width="640"
-          height="46"
-          rx={band.y === 84 ? 0 : 5}
-          fill={band.fill}
-          initial={{ x: -30, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: band.delay, duration: 0.4, ease: 'easeOut' }}
+      {/* --- Abacus drum (white middle band, navy rim) --- */}
+      <motion.g
+        initial={{ scaleX: 0.6, opacity: 0 }}
+        animate={{ scaleX: 1, opacity: 1 }}
+        transition={{ delay: 0.44, duration: 0.4, ease: 'easeOut' }}
+        style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+      >
+        <rect
+          x="346"
+          y="104"
+          width="208"
+          height="34"
+          rx="17"
+          fill={WHITE}
+          stroke={NAVY}
+          strokeWidth="2.5"
         />
-      ))}
+        <rect x="346" y="102" width="208" height="6" rx="3" fill={NAVY} opacity="0.85" />
+        <rect x="346" y="134" width="208" height="6" rx="3" fill={NAVY} opacity="0.85" />
+      </motion.g>
 
-      {/* Ashoka Chakra */}
+      {/* --- Dharma Chakra on the abacus front --- */}
       <motion.g
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.45, ease: 'backOut' }}
         style={svgOrigin}
       >
-        <circle cx="450" cy="105" r="17" fill="none" stroke={NAVY} strokeWidth="2.5" />
+        <circle cx="450" cy="121" r="13" fill="none" stroke={NAVY} strokeWidth="2.2" />
         <motion.g
           animate={{ rotate: 360 }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
           style={svgOrigin}
         >
           {CHAKRA_SPOKES.map((deg) => (
             <line
               key={deg}
               x1="450"
-              y1="101"
+              y1="118"
               x2="450"
-              y2="92"
+              y2="111"
               stroke={NAVY}
-              strokeWidth="2"
-              transform={`rotate(${deg} 450 105)`}
+              strokeWidth="1.6"
+              transform={`rotate(${deg} 450 121)`}
             />
           ))}
         </motion.g>
-        <circle cx="450" cy="105" r="3.5" fill={NAVY} />
+        <circle cx="450" cy="121" r="2.8" fill={NAVY} />
+      </motion.g>
+
+      {/* --- Inverted lotus bell base (green) --- */}
+      <motion.g
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.56, duration: 0.45, ease: 'easeOut' }}
+      >
+        <path
+          d="M 358 138 Q 450 144 542 138 L 522 182 Q 450 188 378 182 Z"
+          fill={GREEN}
+          stroke={NAVY}
+          strokeWidth="1.8"
+        />
+        {/* Lotus petal divisions */}
+        <path d="M 450 140 L 450 184" stroke={NAVY} strokeWidth="1.4" opacity="0.7" />
+        <path d="M 414 142 L 402 183" stroke={NAVY} strokeWidth="1.2" opacity="0.7" />
+        <path d="M 486 142 L 498 183" stroke={NAVY} strokeWidth="1.2" opacity="0.7" />
+        {/* Petal scallops along the bottom edge */}
+        <path
+          d="M 378 182 Q 396 194 414 182 Q 432 194 450 182 Q 468 194 486 182 Q 504 194 522 182"
+          fill="none"
+          stroke={NAVY}
+          strokeWidth="1.6"
+        />
       </motion.g>
     </motion.g>
   )
