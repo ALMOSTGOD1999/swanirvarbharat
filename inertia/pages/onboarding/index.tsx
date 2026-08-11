@@ -512,6 +512,81 @@ function PurposeStep({
 
 // ─── Step 6: Preview & Submit ────────────────────────────────
 function PreviewStep({ app }: { app: any }) {
+  // Documents shown in the preview, with required flags matching backend submit()
+  const docs = [
+    {
+      key: 'certificate_10th',
+      label: '10th Certificate',
+      value: app.certificate10th,
+      required: true,
+    },
+    {
+      key: 'certificate_12th',
+      label: '12th Certificate',
+      value: app.certificate12th,
+      required: true,
+    },
+    {
+      key: 'certificate_graduation',
+      label: 'Graduation',
+      value: app.certificateGraduation,
+      required: false,
+    },
+    {
+      key: 'certificate_post_graduation',
+      label: 'Post Graduation',
+      value: app.certificatePostGraduation,
+      required: false,
+    },
+    { key: 'passport_photo', label: 'Passport Photo', value: app.passportPhoto, required: true },
+  ]
+
+  const uploadDocument = (field: string) => {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = '.pdf,.jpg,.jpeg,.png'
+    input.onchange = () => {
+      const file = input.files?.[0]
+      if (file) {
+        const formData = new FormData()
+        formData.append('file', file)
+        router.post(`/onboarding/documents/${field}`, formData)
+      }
+    }
+    input.click()
+  }
+
+  const uploadVideo = (
+    endpoint: string,
+    fieldName: 'video' | 'file' = 'video',
+    extra?: Record<string, string>
+  ) => {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = 'video/mp4,video/webm,video/quicktime'
+    input.onchange = () => {
+      const file = input.files?.[0]
+      if (file) {
+        const formData = new FormData()
+        formData.append(fieldName, file)
+        if (extra) {
+          for (const [k, v] of Object.entries(extra)) formData.append(k, v)
+        }
+        router.post(endpoint, formData)
+      }
+    }
+    input.click()
+  }
+
+  // Required items gate (matches backend submit() validation)
+  const requiredMissing: string[] = []
+  if (!app.fullName || !app.gender || !app.educationalQualification)
+    requiredMissing.push('Personal Information')
+  docs.filter((d) => d.required && !d.value).forEach((d) => requiredMissing.push(d.label))
+  if (!app.introductionVideo) requiredMissing.push('Introduction Video')
+  if (!app.kycDocument) requiredMissing.push('KYC Document')
+  const canSubmit = requiredMissing.length === 0
+
   const handleSubmit = () => {
     if (
       confirm(
@@ -525,7 +600,8 @@ function PreviewStep({ app }: { app: any }) {
   return (
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
-        Please review all the information before submitting your application.
+        Please review all the information before submitting. You can upload any missing items
+        directly from here before submitting your application.
       </p>
 
       <section>
@@ -545,47 +621,63 @@ function PreviewStep({ app }: { app: any }) {
       <section>
         <h3 className="font-semibold text-lg mb-2">Documents</h3>
         <div className="grid grid-cols-2 gap-2 text-sm">
-          {[
-            { key: 'certificate10th', label: '10th Certificate' },
-            { key: 'certificate12th', label: '12th Certificate' },
-            { key: 'certificateGraduation', label: 'Graduation' },
-            { key: 'certificatePostGraduation', label: 'Post Graduation' },
-            { key: 'passportPhoto', label: 'Passport Photo' },
-          ].map((doc) => (
+          {docs.map((doc) => (
             <div key={doc.key} className="flex items-center justify-between rounded-lg border p-2">
-              <span className="text-xs">{doc.label}</span>
-              {(app as any)[doc.key] ? (
+              <span className="text-xs">
+                {doc.label}
+                {doc.required && <span className="ml-1 text-destructive">*</span>}
+              </span>
+              {doc.value ? (
                 <Button
                   type="button"
                   variant="link"
                   size="sm"
                   className="h-auto p-0 text-xs"
-                  onClick={() => window.open((app as any)[doc.key].url, '_blank')}
+                  onClick={() => window.open(doc.value.url, '_blank')}
                 >
                   View
                 </Button>
               ) : (
-                <span className="text-xs text-muted-foreground">Not uploaded</span>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="h-auto py-0 text-xs"
+                  onClick={() => uploadDocument(doc.key)}
+                >
+                  Upload
+                </Button>
               )}
             </div>
           ))}
         </div>
       </section>
 
-      {app.introductionVideo && (
-        <section>
-          <h3 className="font-semibold text-lg mb-2">Introduction Video</h3>
+      <section>
+        <h3 className="font-semibold text-lg mb-2">Introduction Video</h3>
+        {app.introductionVideo ? (
           <video
             src={app.introductionVideo.url}
             controls
             className="w-full max-w-sm rounded-lg border"
           />
-        </section>
-      )}
+        ) : (
+          <div className="flex flex-col items-center gap-3 rounded-lg border-2 border-dashed p-6">
+            <p className="text-muted-foreground text-sm">No introduction video uploaded yet</p>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => uploadVideo('/onboarding/intro-video')}
+            >
+              Upload Introduction Video
+            </Button>
+          </div>
+        )}
+      </section>
 
-      {app.kycDocument && (
-        <section>
-          <h3 className="font-semibold text-lg mb-2">KYC Document</h3>
+      <section>
+        <h3 className="font-semibold text-lg mb-2">KYC Document</h3>
+        {app.kycDocument ? (
           <div className="flex items-center justify-between rounded-lg border p-3 text-sm">
             <span>
               {app.kycType === 'aadhaar' ? 'Aadhaar Card' : 'Voter ID Card'} —{' '}
@@ -599,19 +691,36 @@ function PreviewStep({ app }: { app: any }) {
               </Button>
             </span>
           </div>
-        </section>
-      )}
+        ) : (
+          <KycInlineUpload app={app} />
+        )}
+      </section>
 
-      {app.purposeVideo && (
-        <section>
-          <h3 className="font-semibold text-lg mb-2">Purpose Video</h3>
+      <section>
+        <h3 className="font-semibold text-lg mb-2">Purpose Video</h3>
+        {app.purposeVideo ? (
           <video
             src={app.purposeVideo.url}
             controls
             className="w-full max-w-sm rounded-lg border"
           />
-        </section>
-      )}
+        ) : (
+          <div className="flex flex-col items-center gap-3 rounded-lg border-2 border-dashed p-6">
+            <p className="text-muted-foreground text-sm">No purpose video uploaded yet</p>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() =>
+                uploadVideo('/onboarding/purpose', 'video', {
+                  description: app.purposeDescription || '',
+                })
+              }
+            >
+              Upload Purpose Video
+            </Button>
+          </div>
+        )}
+      </section>
 
       {app.purposeDescription && (
         <section>
@@ -622,11 +731,69 @@ function PreviewStep({ app }: { app: any }) {
         </section>
       )}
 
-      <div className="flex justify-center pt-6">
-        <Button size="lg" onClick={handleSubmit}>
+      {!canSubmit && (
+        <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm">
+          <p className="font-medium text-destructive">Required items still missing:</p>
+          <ul className="mt-1 list-disc list-inside text-muted-foreground">
+            {requiredMissing.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="flex flex-col items-center gap-2 pt-6">
+        <Button size="lg" onClick={handleSubmit} disabled={!canSubmit}>
           Submit Application
         </Button>
+        {!canSubmit && (
+          <p className="text-xs text-muted-foreground">
+            Upload all required (starred) items above to enable submission.
+          </p>
+        )}
       </div>
+    </div>
+  )
+}
+
+// ─── Inline KYC upload (used by Step 6 when KYC is missing) ────
+function KycInlineUpload({ app }: { app: any }) {
+  const [kycType, setKycType] = useState(app.kycType || '')
+
+  const handleUpload = () => {
+    if (!kycType) return
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = '.pdf,.jpg,.jpeg,.png'
+    input.onchange = () => {
+      const file = input.files?.[0]
+      if (file) {
+        const formData = new FormData()
+        formData.append('kycType', kycType)
+        formData.append('file', file)
+        router.post('/onboarding/kyc', formData)
+      }
+    }
+    input.click()
+  }
+
+  return (
+    <div className="space-y-3 rounded-lg border-2 border-dashed p-6">
+      <div>
+        <label className="text-sm font-medium">KYC Document Type *</label>
+        <select
+          value={kycType}
+          onChange={(e) => setKycType(e.target.value)}
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+        >
+          <option value="">Select document type</option>
+          <option value="aadhaar">Aadhaar Card</option>
+          <option value="voter_id">Voter ID Card</option>
+        </select>
+      </div>
+      <Button type="button" onClick={handleUpload} disabled={!kycType}>
+        Upload KYC Document
+      </Button>
     </div>
   )
 }
