@@ -6,7 +6,7 @@ import { Volume2 } from 'lucide-react'
 // Constants
 // ---------------------------------------------------------------------------
 
-const SAFETY_TIMEOUT_MS = 6400
+const SAFETY_TIMEOUT_MS = 6900
 
 // Indian tricolor palette (saffron / white / green) used thematically — not as a flag
 const SAFFRON = '#FF9933'
@@ -90,8 +90,8 @@ function scheduleJingle(ctx: AudioContext) {
   const master = ctx.createGain()
   master.gain.setValueAtTime(0.0001, t0)
   master.gain.exponentialRampToValueAtTime(0.8, t0 + 0.2)
-  master.gain.setValueAtTime(0.8, t0 + 5.5)
-  master.gain.linearRampToValueAtTime(0.0001, t0 + 6.9)
+  master.gain.setValueAtTime(0.8, t0 + 6.0)
+  master.gain.linearRampToValueAtTime(0.0001, t0 + 7.4)
   master.connect(ctx.destination)
 
   const pluck = (
@@ -230,7 +230,7 @@ export default function WelcomeAnimation() {
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: [0, 1, 1, 0] }}
-      transition={{ duration: 6.0, times: [0, 0.07, 0.94, 1], ease: 'easeInOut' }}
+      transition={{ duration: 6.5, times: [0, 0.07, 0.94, 1], ease: 'easeInOut' }}
       onAnimationComplete={() => setPhase('done')}
       onPointerDown={() => {
         if (!soundOnRef.current) startJingle()
