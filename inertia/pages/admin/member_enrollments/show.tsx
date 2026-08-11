@@ -6,6 +6,7 @@ import { Badge } from '~/components/ui/badge'
 import { buttonVariants } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import AdminLayout from '~/layouts/admin'
+import { resourceTypeLabel } from '~/lib/utils'
 import type { InertiaProps } from '~/types'
 
 type EnrollmentResource = {
@@ -35,7 +36,8 @@ export default function AdminMemberEnrollmentsShow({ enrollment, resource }: Pag
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">{resource.title}</h1>
           <p className="text-muted-foreground capitalize">
-            {resource.type} request from {enrollment.user?.username ?? enrollment.userId}
+            {resourceTypeLabel(resource.type)} request from{' '}
+            {enrollment.user?.username ?? enrollment.userId}
           </p>
         </div>
         <Badge className="capitalize">{enrollment.status}</Badge>

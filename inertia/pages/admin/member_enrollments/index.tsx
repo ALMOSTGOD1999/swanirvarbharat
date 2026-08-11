@@ -6,6 +6,7 @@ import { Badge } from '~/components/ui/badge'
 import { buttonVariants } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import AdminLayout from '~/layouts/admin'
+import { resourceTypeLabel } from '~/lib/utils'
 import type { InertiaProps } from '~/types'
 
 type EnrollmentResource = {
@@ -23,7 +24,7 @@ export default function AdminMemberEnrollmentsIndex({ items }: PageProps) {
     <div className="space-y-6 p-6">
       <div>
         <h1 className="text-3xl font-semibold tracking-tight">Member enrollments</h1>
-        <p className="text-muted-foreground">Review course and series Member access requests.</p>
+        <p className="text-muted-foreground">Review Member access requests for courses.</p>
       </div>
       <div className="grid gap-4">
         {items.map(({ enrollment, resource }) => (
@@ -33,7 +34,8 @@ export default function AdminMemberEnrollmentsIndex({ items }: PageProps) {
                 <div>
                   <CardTitle>{resource.title}</CardTitle>
                   <p className="text-sm text-muted-foreground capitalize">
-                    {resource.type} · {enrollment.user?.username ?? enrollment.userId}
+                    {resourceTypeLabel(resource.type)} ·{' '}
+                    {enrollment.user?.username ?? enrollment.userId}
                   </p>
                 </div>
                 <Badge className="capitalize">{enrollment.status}</Badge>

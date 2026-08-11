@@ -105,16 +105,16 @@ export default function AdminSeriesForm({ series, taxonomies }: PageProps) {
 
   return (
     <>
-      <Head title={isEdit ? 'Edit Series' : 'Create Series'} />
+      <Head title={isEdit ? 'Edit Course' : 'Create Course'} />
       <Header fixed>
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink render={<Link route="admin.series.index" />}>Series</BreadcrumbLink>
+              <BreadcrumbLink render={<Link route="admin.series.index" />}>Courses</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{isEdit ? 'Edit Series' : 'Create Series'}</BreadcrumbPage>
+              <BreadcrumbPage>{isEdit ? 'Edit Course' : 'Create Course'}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -249,7 +249,7 @@ export default function AdminSeriesForm({ series, taxonomies }: PageProps) {
               <Separator />
 
               {/* Thumbnail */}
-              <Section title="Thumbnail" description="Series thumbnail image and metadata">
+              <Section title="Thumbnail" description="Course thumbnail image and metadata">
                 {/* Choose existing or upload new */}
                 <p className="text-sm font-medium">Image</p>
                 <div className="flex items-center gap-2">
@@ -465,7 +465,7 @@ export default function AdminSeriesForm({ series, taxonomies }: PageProps) {
                   Cancel
                 </Link>
                 <Button type="submit" disabled={processing}>
-                  {isEdit ? 'Update Series' : 'Create Series'}
+                  {isEdit ? 'Update Course' : 'Create Course'}
                 </Button>
               </div>
             </div>

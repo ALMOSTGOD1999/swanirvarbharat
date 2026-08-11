@@ -576,7 +576,7 @@ export default function Home({
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {[
                 { icon: BookOpen, value: stats.posts, label: 'Posts Published' },
-                { icon: Flame, value: stats.series, label: 'Learning Series' },
+                { icon: Flame, value: stats.series, label: 'Courses' },
                 { icon: Users, value: stats.topics, label: 'Topics Covered' },
               ].map((stat, i) => (
                 <ScrollReveal key={stat.label} delay={i * 0.15}>
@@ -780,7 +780,9 @@ export default function Home({
             <div className="container mx-auto px-5">
               <ScrollReveal>
                 <div className="mb-10 text-center">
-                  <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Featured Series</h2>
+                  <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                    Featured Courses
+                  </h2>
                   <p className="mt-3 text-muted-foreground">
                     Structured courses to build real-world skills
                   </p>
@@ -795,7 +797,7 @@ export default function Home({
                         <CardHeader className="gap-3">
                           <CardTitle className="text-lg leading-tight">{series.name}</CardTitle>
                           <CardDescription className="line-clamp-2">
-                            {series.description || 'A structured learning series'}
+                            {series.description || 'A structured learning course'}
                           </CardDescription>
                         </CardHeader>
                         <CardPanel className="pt-0">
@@ -822,7 +824,7 @@ export default function Home({
                     href="/series"
                     className={cn(buttonVariants({ variant: 'outline' }), 'gap-2')}
                   >
-                    View all series <ArrowRight className="size-4" />
+                    View all courses <ArrowRight className="size-4" />
                   </Link>
                 </div>
               </ScrollReveal>
@@ -969,7 +971,7 @@ export default function Home({
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Link href="/series" className={cn(buttonVariants({ size: 'lg' }), 'gap-2 px-8')}>
-                  Browse Series <ArrowRight className="size-4" />
+                  Browse Courses <ArrowRight className="size-4" />
                 </Link>
                 <Link
                   href="/forum"

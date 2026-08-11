@@ -44,7 +44,7 @@ export default function AdminSeriesContent({ series, posts }: PageProps) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink render={<Link route="admin.series.index" />}>Series</BreadcrumbLink>
+              <BreadcrumbLink render={<Link route="admin.series.index" />}>Courses</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

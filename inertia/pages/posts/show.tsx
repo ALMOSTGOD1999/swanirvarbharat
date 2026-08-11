@@ -181,7 +181,7 @@ export default function PostsShow({ post, comments, currentUserId }: PageProps) 
             <Card>
               <CardHeader className="border-b">
                 <CardTitle>Post details</CardTitle>
-                <CardDescription>Author, taxonomies, and series information.</CardDescription>
+                <CardDescription>Author, taxonomies, and course information.</CardDescription>
               </CardHeader>
               <CardPanel className="space-y-6">
                 <section className="space-y-3">
@@ -230,7 +230,7 @@ export default function PostsShow({ post, comments, currentUserId }: PageProps) 
                 <section className="space-y-3">
                   <p className="flex items-center gap-2 text-sm font-medium">
                     <Hash className="size-4 text-muted-foreground" aria-hidden="true" />
-                    Series
+                    Courses
                   </p>
                   <div className="space-y-2">
                     {seriesList.length ? (
@@ -244,7 +244,7 @@ export default function PostsShow({ post, comments, currentUserId }: PageProps) 
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-muted-foreground">No series attached.</p>
+                      <p className="text-sm text-muted-foreground">No courses attached.</p>
                     )}
                   </div>
                 </section>
@@ -255,7 +255,7 @@ export default function PostsShow({ post, comments, currentUserId }: PageProps) 
                     <section className="space-y-3">
                       <p className="flex items-center gap-2 text-sm font-medium">
                         <Hash className="size-4 text-muted-foreground" aria-hidden="true" />
-                        Root series
+                        Root course
                       </p>
                       <div className="space-y-2">
                         {rootSeries.map((series) => (

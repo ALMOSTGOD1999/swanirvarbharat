@@ -57,13 +57,13 @@ const navItems: AdminNavSection[] = [
         subject: 'post',
       },
       {
-        title: 'Courses',
+        title: 'Course Modules',
         url: urlFor('admin.courses.index'),
         icon: BookOpenIcon,
         subject: 'course',
       },
       {
-        title: 'Series',
+        title: 'Courses',
         url: urlFor('admin.series.index'),
         icon: ListIcon,
         subject: 'series',

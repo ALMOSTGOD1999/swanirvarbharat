@@ -45,7 +45,7 @@ type SearchPageProps = InertiaProps<{
 
 const tabs: { key: SearchType; label: string; icon: React.ReactNode }[] = [
   { key: 'posts', label: 'Posts', icon: <FileTextIcon className="size-4" /> },
-  { key: 'series', label: 'Series', icon: <LayersIcon className="size-4" /> },
+  { key: 'series', label: 'Courses', icon: <LayersIcon className="size-4" /> },
   { key: 'topics', label: 'Topics', icon: <BookOpenIcon className="size-4" /> },
   { key: 'discussions', label: 'Discussions', icon: <MessageSquareIcon className="size-4" /> },
 ]

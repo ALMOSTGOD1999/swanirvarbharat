@@ -7,6 +7,7 @@ import { Badge } from '~/components/ui/badge'
 import { buttonVariants } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import DefaultLayout from '~/layouts/default'
+import { resourceTypeLabel } from '~/lib/utils'
 import type { InertiaProps } from '~/types'
 
 type EnrollmentResource = {
@@ -27,10 +28,7 @@ type PageProps = InertiaProps<{ items: EnrollmentItem[] }>
 export default function MemberEnrollmentsIndex({ items }: PageProps) {
   return (
     <>
-      <SEOHead
-        title="My Enrollments"
-        description="Track your Member course and series enrollment requests."
-      />
+      <SEOHead title="My Enrollments" description="Track your Member course enrollment requests." />
       <div className="px-5 py-10">
         <div className="container mx-auto max-w-5xl space-y-8">
           <section className="space-y-3">
@@ -51,7 +49,7 @@ export default function MemberEnrollmentsIndex({ items }: PageProps) {
                     <div>
                       <CardTitle>{resource.title}</CardTitle>
                       <CardDescription className="capitalize">
-                        {resource.type} · attempt {enrollment.attemptNumber}
+                        {resourceTypeLabel(resource.type)} · attempt {enrollment.attemptNumber}
                       </CardDescription>
                     </div>
                     <Badge
@@ -75,7 +73,7 @@ export default function MemberEnrollmentsIndex({ items }: PageProps) {
                     href={resource.url}
                     className={buttonVariants({ size: 'sm', variant: 'outline' })}
                   >
-                    View {resource.type}
+                    View {resourceTypeLabel(resource.type)}
                   </Link>
                 </CardContent>
               </Card>
@@ -86,7 +84,7 @@ export default function MemberEnrollmentsIndex({ items }: PageProps) {
                 <CardContent className="py-14 text-center">
                   <h2 className="text-2xl font-semibold">No enrollment requests yet</h2>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Member-gated courses and series you apply for will appear here.
+                    Member-gated courses you apply for will appear here.
                   </p>
                 </CardContent>
               </Card>

@@ -238,18 +238,18 @@ export default function AdminSeries({
 
   return (
     <>
-      <Head title="Series" />
+      <Head title="Courses" />
       <Header fixed>
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbPage>Series</BreadcrumbPage>
+              <BreadcrumbPage>Courses</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </Header>
       <Main>
-        <Heading title="Series" description="Manage your series and their content.">
+        <Heading title="Courses" description="Manage your courses and their content.">
           <SeriesPrimaryButtons />
         </Heading>
         <div className="flex-1 overflow-auto py-1 lg:flex-row lg:space-x-12 lg:space-y-0">

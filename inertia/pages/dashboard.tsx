@@ -59,7 +59,7 @@ const continueLearning = [
 ]
 
 const quickLinks = [
-  { href: '/series', label: 'Browse Series', icon: BookOpen },
+  { href: '/series', label: 'Browse Courses', icon: BookOpen },
   { href: '/lessons', label: 'All Lessons', icon: PlayCircle },
   { href: '/forum', label: 'Community Forum', icon: MessageSquare },
   { href: '/blog', label: 'Read Blog', icon: FileText },

@@ -11,7 +11,7 @@ import { Logo } from '~/components/logo'
 const navLinks = [
   { label: 'Home', route: 'home' },
   { label: 'Lessons', route: 'lessons.index' },
-  { label: 'Series', route: 'series.index' },
+  { label: 'Courses', route: 'series.index' },
   { label: 'Topics', route: 'topics.index' },
   { label: 'Blog', route: 'blogs.index' },
   { label: 'Forum', route: 'discussions.index' },

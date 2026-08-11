@@ -629,7 +629,7 @@ function AssessmentSection({ lessonSlug }: { lessonSlug: string }) {
                 </Button>
               ) : (
                 <Button size="lg" variant="outline" render={<Link href="/series" />}>
-                  Back to Series <ArrowRight className="ml-2 size-4" />
+                  Back to Courses <ArrowRight className="ml-2 size-4" />
                 </Button>
               )}
             </div>

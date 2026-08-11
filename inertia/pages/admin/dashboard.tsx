@@ -50,7 +50,7 @@ type PageProps = InertiaProps<{
 const statCards = [
   { key: 'users', title: 'Users', icon: UsersIcon, color: '#6366f1' },
   { key: 'posts', title: 'Posts Published', icon: FileTextIcon, color: '#8b5cf6' },
-  { key: 'series', title: 'Series', icon: ListIcon, color: '#a855f7' },
+  { key: 'series', title: 'Courses', icon: ListIcon, color: '#a855f7' },
   { key: 'taxonomies', title: 'Taxonomies', icon: TagsIcon, color: '#d946ef' },
   { key: 'comments', title: 'Comments', icon: MessageSquareIcon, color: '#ec4899' },
   { key: 'discussions', title: 'Discussions', icon: MessageCircleMoreIcon, color: '#f59e0b' },

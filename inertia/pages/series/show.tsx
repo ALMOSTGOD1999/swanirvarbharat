@@ -76,7 +76,7 @@ function EnrollmentForm({
           minLength={10}
           maxLength={2000}
           defaultValue={isPendingEdit ? enrollment.reason : ''}
-          placeholder="Tell us why you want to join this member series (min 10 characters)."
+          placeholder="Tell us why you want to join this course (min 10 characters)."
           className="min-h-28 w-full rounded-xl border bg-background px-3 py-2 text-sm"
         />
         {errors.reason ? <p className="mt-1 text-xs text-red-500">{errors.reason}</p> : null}
@@ -172,7 +172,7 @@ export default function SeriesShow({
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink render={<Link route="series.index" />}>Series</BreadcrumbLink>
+                  <BreadcrumbLink render={<Link route="series.index" />}>Courses</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
@@ -189,7 +189,7 @@ export default function SeriesShow({
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="outline" className="gap-1.5">
                     <Layers className="size-3" aria-hidden="true" />
-                    Series
+                    Courses
                   </Badge>
                   {series.state ? (
                     <Badge className="capitalize" variant="secondary">
@@ -241,7 +241,7 @@ export default function SeriesShow({
                           'Your request was rejected. You can resubmit if attempts remain.'
                         : enrollment?.status === 'revoked'
                           ? enrollment.revocationReason || 'Your prior approval was revoked.'
-                          : 'Apply with a short reason and video to unlock this member series.'}
+                          : 'Apply with a short reason and video to unlock this course.'}
                   </CardDescription>
                 </CardHeader>
                 <CardPanel className="space-y-4">
@@ -270,8 +270,8 @@ export default function SeriesShow({
                 <CardTitle>Lessons</CardTitle>
                 <CardDescription>
                   {posts.length > 0
-                    ? `${posts.length} ${posts.length === 1 ? 'lesson' : 'lessons'} in this series`
-                    : 'No lessons have been added to this series yet.'}
+                    ? `${posts.length} ${posts.length === 1 ? 'lesson' : 'lessons'} in this course`
+                    : 'No lessons have been added to this course yet.'}
                 </CardDescription>
               </CardHeader>
               <CardPanel className="pt-0">
@@ -333,7 +333,7 @@ export default function SeriesShow({
                     <div className="space-y-1">
                       <p className="font-medium text-muted-foreground">No lessons yet</p>
                       <p className="text-sm text-muted-foreground">
-                        Lessons will appear here once they are added to this series.
+                        Lessons will appear here once they are added to this course.
                       </p>
                     </div>
                   </div>
@@ -348,7 +348,7 @@ export default function SeriesShow({
               route="series.index"
               className={buttonVariants({ variant: 'outline', size: 'sm' })}
             >
-              ← Back to series
+              ← Back to courses
             </Link>
           </ScrollReveal>
         </div>

@@ -3,7 +3,7 @@ import { urlFor } from '~/client'
 
 const contentLinks = [
   { route: 'lessons.index', label: 'Lessons' },
-  { route: 'series.index', label: 'Series' },
+  { route: 'series.index', label: 'Courses' },
   { route: 'topics.index', label: 'Topics' },
   { route: 'blogs.index', label: 'Blog' },
   { route: 'posts.index', label: 'Posts' },

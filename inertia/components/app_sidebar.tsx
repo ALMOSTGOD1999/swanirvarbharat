@@ -26,7 +26,7 @@ const navItems = [
     isActive: true,
   },
   {
-    title: 'Series',
+    title: 'Courses',
     href: urlFor('series.index'),
     icon: UsersIcon,
     isActive: true,
