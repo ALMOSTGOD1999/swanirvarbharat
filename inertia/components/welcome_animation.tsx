@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
+import { Volume2 } from 'lucide-react'
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const WELCOME_STORAGE_KEY = 'swanirvarbharat-welcome-shown'
 const SAFETY_TIMEOUT_MS = 5900
 
 // Indian flag palette
@@ -72,17 +72,139 @@ const BG_STARS = [
 const svgOrigin = { transformBox: 'fill-box', transformOrigin: 'center' } as const
 
 // ---------------------------------------------------------------------------
+// Sound (Web Audio — synthesized, no asset files)
+// ---------------------------------------------------------------------------
+
+function createAudioContext() {
+  const Ctor = window.AudioContext ?? (window as any).webkitAudioContext
+  return new Ctor()
+}
+
+/**
+ * Schedules a short uplifting jingle (~6s) aligned with the animation:
+ * a soft pad (C → G → F → C), a pentatonic pluck melody, a walking bass,
+ * a low boom when the star pops and a chime as the title appears.
+ */
+function scheduleJingle(ctx: AudioContext) {
+  const t0 = ctx.currentTime + 0.05
+  const master = ctx.createGain()
+  master.gain.setValueAtTime(0.0001, t0)
+  master.gain.exponentialRampToValueAtTime(0.8, t0 + 0.2)
+  master.gain.setValueAtTime(0.8, t0 + 5.0)
+  master.gain.linearRampToValueAtTime(0.0001, t0 + 6.4)
+  master.connect(ctx.destination)
+
+  const pluck = (
+    freq: number,
+    at: number,
+    dur: number,
+    vol: number,
+    type: OscillatorType = 'triangle'
+  ) => {
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.type = type
+    osc.frequency.setValueAtTime(freq, t0 + at)
+    gain.gain.setValueAtTime(0.0001, t0 + at)
+    gain.gain.linearRampToValueAtTime(vol, t0 + at + 0.015)
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + at + dur)
+    osc.connect(gain)
+    gain.connect(master)
+    osc.start(t0 + at)
+    osc.stop(t0 + at + dur + 0.05)
+  }
+
+  const pad = (freqs: number[], at: number, dur: number, vol: number) => {
+    for (const freq of freqs) pluck(freq, at, dur, vol, 'sine')
+  }
+
+  // Melody (C major pentatonic, cheerful)
+  const melody: Array<[number, number, number]> = [
+    [523.25, 0.1, 0.4], // E5
+    [783.99, 0.45, 0.4], // G5
+    [880, 0.8, 0.4], // A5
+    [783.99, 1.15, 0.4], // G5
+    [659.25, 1.5, 0.4], // E5
+    [587.33, 1.85, 0.45], // D5
+    [523.25, 2.2, 0.4], // C5
+    [587.33, 2.55, 0.4], // D5
+    [659.25, 2.9, 0.4], // E5
+    [783.99, 3.25, 0.4], // G5
+    [880, 3.6, 0.65], // A5 (climb peak)
+    [783.99, 4.1, 0.35], // G5
+    [659.25, 4.25, 0.35], // E5
+    [523.25, 4.4, 0.35], // C5
+    [587.33, 4.65, 0.35], // D5
+    [523.25, 4.9, 0.9], // C5 (resolve)
+  ]
+  for (const [freq, at, dur] of melody) pluck(freq, at, dur, 0.26)
+
+  // Chord pads
+  pad([130.81, 196.0, 261.63, 329.63], 0.05, 5.3, 0.045) // C major
+  pad([98.0, 146.83, 246.94, 392.0], 1.85, 3.6, 0.04) // G major
+  pad([87.31, 130.81, 220.0, 349.23], 3.35, 2.4, 0.04) // F major
+  pad([130.81, 196.0, 329.63], 4.45, 1.5, 0.05) // C major (resolve)
+
+  // Gentle walking bass
+  pluck(130.81, 0.1, 0.8, 0.22, 'sine')
+  pluck(98.0, 1.85, 0.8, 0.22, 'sine')
+  pluck(110.0, 3.35, 0.8, 0.22, 'sine')
+  pluck(130.81, 4.4, 0.9, 0.22, 'sine')
+
+  // Low boom when the star pops
+  pluck(65.41, 4.1, 1.0, 0.3, 'sine')
+
+  // Chime as the title appears
+  pluck(1046.5, 5.05, 1.5, 0.14, 'sine') // C6
+  pluck(783.99, 5.15, 1.2, 0.09, 'sine') // G5
+}
+
+// ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
 
 export default function WelcomeAnimation() {
   const [phase, setPhase] = useState<'idle' | 'playing' | 'done'>('idle')
 
+  // Sound state: jingle starts on mount when autoplay is allowed, otherwise
+  // a "Tap for sound" hint appears (browsers block audio before a gesture).
+  const [soundOn, setSoundOn] = useState(false)
+  const [soundBlocked, setSoundBlocked] = useState(false)
+  const soundOnRef = useRef(false)
+  const audioCtx = useRef<AudioContext | null>(null)
+
+  const startJingle = useCallback(async () => {
+    if (soundOnRef.current) return
+    soundOnRef.current = true // reserve immediately to avoid double-scheduling
+    try {
+      const ctx = audioCtx.current ?? createAudioContext()
+      audioCtx.current = ctx
+      if (ctx.state === 'suspended') await ctx.resume()
+      scheduleJingle(ctx)
+      setSoundOn(true)
+    } catch {
+      soundOnRef.current = false // allow retry on the next tap
+      setSoundBlocked(true)
+    }
+  }, [])
+
   useEffect(() => {
-    // Skip for users who prefer reduced motion, and play at most once per session
+    if (phase !== 'playing') return
+    startJingle()
+    // If the context is still suspended shortly after mount, autoplay was blocked
+    const check = window.setTimeout(() => {
+      if (!audioCtx.current || audioCtx.current.state !== 'running') setSoundBlocked(true)
+    }, 400)
+    return () => {
+      window.clearTimeout(check)
+      audioCtx.current?.close().catch(() => {})
+      audioCtx.current = null
+    }
+  }, [phase, startJingle])
+
+  useEffect(() => {
+    // Skip for users who prefer reduced motion
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    if (sessionStorage.getItem(WELCOME_STORAGE_KEY) === '1') return
-    sessionStorage.setItem(WELCOME_STORAGE_KEY, '1')
     setPhase('playing')
   }, [])
 
@@ -110,6 +232,9 @@ export default function WelcomeAnimation() {
       animate={{ opacity: [0, 1, 1, 0] }}
       transition={{ duration: 5.5, times: [0, 0.07, 0.94, 1], ease: 'easeInOut' }}
       onAnimationComplete={() => setPhase('done')}
+      onPointerDown={() => {
+        if (!soundOnRef.current) startJingle()
+      }}
     >
       <svg
         viewBox="0 0 900 640"
@@ -131,6 +256,17 @@ export default function WelcomeAnimation() {
         <StudyScene />
         <ClimbScene />
       </svg>
+
+      {soundBlocked && !soundOn && (
+        <button
+          type="button"
+          onClick={() => startJingle()}
+          className="absolute bottom-6 left-1/2 flex -translate-x-1/2 cursor-pointer items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white/90 shadow-lg backdrop-blur transition-colors hover:bg-white/20"
+        >
+          <Volume2 className="size-4" />
+          Tap for sound
+        </button>
+      )}
     </motion.div>
   )
 }
