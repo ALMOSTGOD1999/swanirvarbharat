@@ -231,9 +231,9 @@ export class CandidateApplicationSchema extends BaseModel {
   @column()
   declare kycType: string | null
   @column()
-  declare phone: string | null
-  @column()
   declare passportPhoto: any | null
+  @column()
+  declare phone: string | null
   @column()
   declare purposeDescription: string | null
   @column()
