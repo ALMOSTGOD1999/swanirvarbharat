@@ -59,6 +59,9 @@ export default class CandidateApplication extends AppSchema {
   declare kycDocument: any | null
 
   @column()
+  declare phone: string | null
+
+  @column()
   declare purposeDescription: string | null
 
   // Admin

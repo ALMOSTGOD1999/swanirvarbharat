@@ -360,6 +360,7 @@ function IntroVideoStep({
 // ─── Step 4: KYC Verification ────────────────────────────────
 function KycStep({ app, onNext, onPrev }: { app: any; onNext: () => void; onPrev: () => void }) {
   const [kycType, setKycType] = useState(app.kycType || '')
+  const [phone, setPhone] = useState(app.phone || '')
   const [uploaded, setUploaded] = useState(!!app.kycDocument)
 
   const handleUpload = () => {
@@ -371,6 +372,7 @@ function KycStep({ app, onNext, onPrev }: { app: any; onNext: () => void; onPrev
       if (file) {
         const formData = new FormData()
         formData.append('kycType', kycType)
+        formData.append('phone', phone)
         formData.append('file', file)
         router.post('/onboarding/kyc', formData, { onSuccess: () => setUploaded(true) })
       }
@@ -383,6 +385,16 @@ function KycStep({ app, onNext, onPrev }: { app: any; onNext: () => void; onPrev
       <p className="text-sm text-muted-foreground">
         Upload any one government-issued ID for KYC verification.
       </p>
+      <div>
+        <label className="text-sm font-medium">Phone Number *</label>
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="Enter your phone number"
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+        />
+      </div>
       <div>
         <label className="text-sm font-medium">KYC Document Type *</label>
         <select
@@ -678,18 +690,21 @@ function PreviewStep({ app }: { app: any }) {
       <section>
         <h3 className="font-semibold text-lg mb-2">KYC Document</h3>
         {app.kycDocument ? (
-          <div className="flex items-center justify-between rounded-lg border p-3 text-sm">
-            <span>
-              {app.kycType === 'aadhaar' ? 'Aadhaar Card' : 'Voter ID Card'} —{' '}
-              <Button
-                type="button"
-                variant="link"
-                className="h-auto p-0 text-xs"
-                onClick={() => window.open(app.kycDocument.url, '_blank')}
-              >
-                View Document
-              </Button>
-            </span>
+          <div className="rounded-lg border p-3 text-sm space-y-1">
+            <div className="flex items-center justify-between">
+              <span>
+                {app.kycType === 'aadhaar' ? 'Aadhaar Card' : 'Voter ID Card'} —{' '}
+                <Button
+                  type="button"
+                  variant="link"
+                  className="h-auto p-0 text-xs"
+                  onClick={() => window.open(app.kycDocument.url, '_blank')}
+                >
+                  View Document
+                </Button>
+              </span>
+            </div>
+            {app.phone && <div className="text-muted-foreground">Phone: {app.phone}</div>}
           </div>
         ) : (
           <KycInlineUpload app={app} />
@@ -759,6 +774,7 @@ function PreviewStep({ app }: { app: any }) {
 // ─── Inline KYC upload (used by Step 6 when KYC is missing) ────
 function KycInlineUpload({ app }: { app: any }) {
   const [kycType, setKycType] = useState(app.kycType || '')
+  const [phone, setPhone] = useState(app.phone || '')
 
   const handleUpload = () => {
     if (!kycType) return
@@ -770,6 +786,7 @@ function KycInlineUpload({ app }: { app: any }) {
       if (file) {
         const formData = new FormData()
         formData.append('kycType', kycType)
+        formData.append('phone', phone)
         formData.append('file', file)
         router.post('/onboarding/kyc', formData)
       }
@@ -779,6 +796,16 @@ function KycInlineUpload({ app }: { app: any }) {
 
   return (
     <div className="space-y-3 rounded-lg border-2 border-dashed p-6">
+      <div>
+        <label className="text-sm font-medium">Phone Number *</label>
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="Enter your phone number"
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+        />
+      </div>
       <div>
         <label className="text-sm font-medium">KYC Document Type *</label>
         <select

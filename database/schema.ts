@@ -200,7 +200,7 @@ export class BlockSchema extends BaseModel {
 }
 
 export class CandidateApplicationSchema extends BaseModel {
-  static $columns = ['adminRemarks', 'age', 'certificate10Th', 'certificate12Th', 'certificateGraduation', 'certificatePostGraduation', 'createdAt', 'educationalQualification', 'fullName', 'gender', 'id', 'introductionVideo', 'kycDocument', 'kycType', 'passportPhoto', 'purposeDescription', 'purposeVideo', 'reviewedAt', 'reviewedBy', 'status', 'updatedAt', 'userId'] as const
+  static $columns = ['adminRemarks', 'age', 'certificate10Th', 'certificate12Th', 'certificateGraduation', 'certificatePostGraduation', 'createdAt', 'educationalQualification', 'fullName', 'gender', 'id', 'introductionVideo', 'kycDocument', 'kycType', 'passportPhoto', 'phone', 'purposeDescription', 'purposeVideo', 'reviewedAt', 'reviewedBy', 'status', 'updatedAt', 'userId'] as const
   $columns = CandidateApplicationSchema.$columns
   @column()
   declare adminRemarks: string | null
@@ -230,6 +230,8 @@ export class CandidateApplicationSchema extends BaseModel {
   declare kycDocument: any | null
   @column()
   declare kycType: string | null
+  @column()
+  declare phone: string | null
   @column()
   declare passportPhoto: any | null
   @column()

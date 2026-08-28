@@ -57,6 +57,7 @@ export default class OnboardingController {
           purposeVideo: application.purposeVideo,
           kycType: application.kycType,
           kycDocument: application.kycDocument,
+          phone: application.phone,
           purposeDescription: application.purposeDescription,
           adminRemarks: application.adminRemarks,
           reviewedBy: application.reviewedBy,
@@ -200,6 +201,7 @@ export default class OnboardingController {
   async uploadKyc({ request, response, auth, session }: HttpContext) {
     const user = auth.getUserOrFail()
     const kycType = request.input('kycType') as string
+    const phone = request.input('phone') as string
     const file = request.file('file')
 
     if (!['aadhaar', 'voter_id'].includes(kycType)) {
@@ -214,6 +216,7 @@ export default class OnboardingController {
 
     const application = await this.getOrCreateApplication(user)
     application.kycType = kycType
+    application.phone = phone || null
     application.kycDocument = await this.handleUpload(file)
     await application.save()
 
@@ -312,6 +315,7 @@ export default class OnboardingController {
           purposeVideo: application.purposeVideo,
           kycType: application.kycType,
           kycDocument: application.kycDocument,
+          phone: application.phone,
           purposeDescription: application.purposeDescription,
           adminRemarks: application.adminRemarks,
           createdAt: application.createdAt,

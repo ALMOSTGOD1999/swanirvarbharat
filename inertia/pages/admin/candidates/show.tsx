@@ -158,17 +158,20 @@ export default function AdminCandidatesShow({ application }: PageProps) {
           <CardHeader>
             <CardTitle>KYC Document</CardTitle>
           </CardHeader>
-          <CardPanel className="flex items-center justify-between">
-            <span className="text-sm">
-              {app.kycType === 'aadhaar' ? 'Aadhaar Card' : 'Voter ID Card'}
-            </span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => window.open(app.kycDocument.url, '_blank')}
-            >
-              View Document
-            </Button>
+          <CardPanel className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-sm">
+                {app.kycType === 'aadhaar' ? 'Aadhaar Card' : 'Voter ID Card'}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.open(app.kycDocument.url, '_blank')}
+              >
+                View Document
+              </Button>
+            </div>
+            {app.phone && <div className="text-sm text-muted-foreground">Phone: {app.phone}</div>}
           </CardPanel>
         </Card>
       )}

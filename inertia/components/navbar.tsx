@@ -13,7 +13,7 @@ const navLinks = [
   { label: 'Lessons', route: 'lessons.index' },
   { label: 'Courses', route: 'series.index' },
   { label: 'Topics', route: 'topics.index' },
-  { label: 'Blog', route: 'blogs.index' },
+  { label: 'News', route: 'blogs.index' },
   { label: 'Forum', route: 'discussions.index' },
 ] as const
 

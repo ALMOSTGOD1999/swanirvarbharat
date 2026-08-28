@@ -9,10 +9,12 @@ import {
   Code,
   Flame,
   Newspaper,
+  Percent,
   PlayCircle,
   Sparkles,
   StickyNote,
   Users,
+  Award,
 } from 'lucide-react'
 import type React from 'react'
 
@@ -42,6 +44,31 @@ type PageProps = InertiaProps<{
   topics: Topic[]
   stats: { posts: number; series: number; topics: number }
 }>
+
+// ---------------------------------------------------------------------------
+// Advisors
+// ---------------------------------------------------------------------------
+
+const advisors = [
+  {
+    name: 'Rajesh Kumar',
+    role: 'Hospitality Industry Advisor',
+    details:
+      'Former General Manager at Taj Hotels with over 25 years of experience in luxury hospitality. Guides curriculum development and industry partnerships.',
+  },
+  {
+    name: 'Priya Sharma',
+    role: 'Education & Training Advisor',
+    details:
+      'Dean of Hospitality Studies with 20 years in vocational education. Oversees pedagogy, assessment frameworks, and student mentorship programs.',
+  },
+  {
+    name: 'Anil Mehta',
+    role: 'Rural Development Advisor',
+    details:
+      'Social entrepreneur and NGO leader working in rural skill development for 15 years. Advises on community outreach and grassroots mobilization.',
+  },
+] as const
 
 // ---------------------------------------------------------------------------
 // Animation variants
@@ -539,19 +566,9 @@ export default function Home({
                     </div>
                   </div>
                   <div>
-                    <p className="mb-3 text-center text-sm font-medium text-muted-foreground">
-                      PLACEMENT PARTNERS
+                    <p className="text-center text-sm font-medium text-muted-foreground">
+                      Placement in top hotels
                     </p>
-                    <div className="flex flex-wrap justify-center gap-3">
-                      {['Taj', 'Marriott', 'Hyatt', 'Oberoi', 'IHCL', 'Radisson'].map((name) => (
-                        <div
-                          key={name}
-                          className="rounded-lg border bg-muted/30 px-4 py-2 text-sm font-semibold text-muted-foreground"
-                        >
-                          {name}
-                        </div>
-                      ))}
-                    </div>
                   </div>
                 </motion.div>
               </div>
@@ -573,11 +590,12 @@ export default function Home({
         {/* ── Stats ────────────────────────────────────────────── */}
         <section className="py-16 md:py-20">
           <div className="container mx-auto px-5">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
               {[
                 { icon: BookOpen, value: stats.posts, label: 'Posts Published' },
                 { icon: Flame, value: stats.series, label: 'Courses' },
                 { icon: Users, value: stats.topics, label: 'Topics Covered' },
+                { icon: Percent, value: '58%', label: 'Female Student Percentage' },
               ].map((stat, i) => (
                 <ScrollReveal key={stat.label} delay={i * 0.15}>
                   <div className="rounded-2xl border bg-card p-6 text-center shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
@@ -954,6 +972,42 @@ export default function Home({
             </div>
           </section>
         )}
+
+        {/* ── Our Advisors ──────────────────────────────────────── */}
+        <section className="border-t bg-muted/30 py-16 md:py-20">
+          <div className="container mx-auto px-5">
+            <ScrollReveal>
+              <div className="mb-10 text-center">
+                <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-xl bg-primary/10">
+                  <Award className="text-primary" size={24} />
+                </div>
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Our Advisors</h2>
+                <p className="mt-3 text-muted-foreground">
+                  Experienced leaders guiding our mission to empower rural youth
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {advisors.map((advisor, i) => (
+                <ScrollReveal key={advisor.name} delay={i * 0.1}>
+                  <Card className="h-full transition-all hover:shadow-md hover:-translate-y-1">
+                    <CardPanel className="p-6 text-center">
+                      <div className="mx-auto mb-4 flex size-20 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary">
+                        {advisor.name.charAt(0)}
+                      </div>
+                      <CardTitle className="text-lg">{advisor.name}</CardTitle>
+                      <p className="mt-1 text-sm font-medium text-primary">{advisor.role}</p>
+                      <CardDescription className="mt-3 text-sm leading-relaxed">
+                        {advisor.details}
+                      </CardDescription>
+                    </CardPanel>
+                  </Card>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* ── CTA ──────────────────────────────────────────── */}
         <section className="relative overflow-hidden py-16 md:py-20">
